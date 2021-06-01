@@ -15,20 +15,20 @@ so that I can view all the movie details, view my own review, and select a revie
     - year
     - genre
     - average rating
- - My Review Section (!)
+  - My Review Section (!)
     - Review List Item (review exists)
         - Review summary
         - count of likes and dislikes
         - Edit My Review Button
     - Add My Review Button (no review exists)
-- List Top 5 reviews
+  - List Top 5 reviews
     - Review List
         - Review List Item 
             - Review summary
             - count of likes and dislikes
             - 'thumbs up' button(!)
             - 'thumbs down' button(!)
-- List 5 More Reviews button
+  - List 5 More Reviews button
     - Review List
 
 ## On Load
