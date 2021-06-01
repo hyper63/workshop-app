@@ -2,7 +2,7 @@
 
 As a user
 I'd like the ability to see the movie title, actors, year, genre, average rating, and list of top 5 'most popular' reviews
-so that I can view all the movie details, view my own review, and select a review to view the complete review and its associated reactions. I may also list additional reviews, 5 at a time.   See **[Display Movie Page](./design/stories.md#display-movie-page)** user story for more details.
+so that I can view all the movie details, view my own review, and select a review to view the complete review and its associated reactions. I may also list additional reviews, 5 at a time.   See **[Display Movie Page](./stories.md#display-movie-page)** user story for more details.
 
 ## Components
 
