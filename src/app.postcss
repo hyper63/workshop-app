@@ -2,3 +2,82 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* global defaults */
+h1 {
+ @apply font-space;
+  @apply text-8xl;
+  @apply text-black;
+}
+
+h2 {
+  @apply font-space;
+  @apply text-5xl;
+  @apply font-semibold;
+  @apply text-black;
+}
+
+h3 {
+  @apply font-space;
+  @apply text-4xl;
+  @apply font-semibold;
+  @apply text-black;
+}
+
+h4 {
+  @apply font-space;
+  @apply text-3xl;
+  @apply font-normal;
+  @apply text-darkgray;
+}
+
+h5 {
+  @apply font-mono;
+  @apply text-1.5xl;
+  @apply font-normal;
+  @apply text-gray;
+}
+
+blockquote {
+  @apply font-mono;
+  @apply text-2xl;
+  @apply font-normal;
+  @apply text-gray;
+}
+
+p {
+  @apply font-space;
+  @apply text-darkgray;
+  @apply text-1.5xl;
+  @apply font-normal;
+}
+
+p.detail {
+  @apply font-space;
+  @apply text-darkgray;
+  @apply text-xl;
+  @apply font-semibold;
+}
+
+button {
+  @apply inline-flex items-center px-6 py-3 border border-transparent text-base font-mono rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2; 
+}
+.bg-gradient-red {
+  @apply bg-gradient-to-b from-red to-lightred;
+}
+.bg-gradient-blue {
+  @apply bg-gradient-to-b from-blue to-lightblue;
+}
+.bg-gradient-yellow {
+  @apply bg-gradient-to-b from-yellow to-lightyellow;
+}
+.bg-gradient-orange {
+  @apply bg-gradient-to-b from-orange to-lightorange;
+}
+.bg-gradient-purple {
+  @apply bg-gradient-to-b from-purple to-lightpurple;
+}
+.bg-gradient-green {
+  @apply bg-gradient-to-b from-green to-lightgreen;
+}
+
