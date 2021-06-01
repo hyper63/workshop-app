@@ -35,8 +35,7 @@ so that I can view all the movie details, view my own review, and select a revie
 
 1. Get movie id from path 
 1. getMovie(movie id) => CurrentMovie - API call to `GET /api/movies/:id` --> `./api/movies/[id].get`
-1. loggedIn ? 
-1.  getMyReview(movie id) => MyReview (Review)
+1. loggedIn ? getMyReview(movie id) => MyReview (Review)
     - API call to `GET /api/reviews` --> `.api/reviews.get` --> `core.reviews.byUser(user)`
     - Filter reviews by the movie retrieved from `getMovie()`.
 1. getMovieReviews(movie id, start=0, end=4) => Listing 5 Reviews using start and end
