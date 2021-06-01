@@ -11,7 +11,7 @@ so that I can simply search for movies, select a movie, review its details, revi
 1. User navigates to `/`
 1. Website displays 'google-like' search textbox and search icon. 
 1. User enters movie search criteria and selects 'enter' or clicks search icon. 
-1. Website returns movie search results as a list underneath search textbox. 
+1. As the user types, the website returns movie search results as a list underneath search textbox.
 
 
 ### Actionable Next Steps
@@ -31,9 +31,11 @@ so that I can simply search for movies, select a movie, review its details, revi
 
 As a user
 I'd like the ability to see the movie title, actors, year, genre, average rating, and list of top 5 'most popular' reviews
-so that I can view all the movie details, view my own review, and select a review to view the complete review and its associated reactions. 
+so that I can view all the movie details, view my own review, and select a review to view the complete review and its associated reactions. I may also list additional reviews, 5 at a time. 
 
 ### Component Display
+
+(!) -- Requires Login
 
 - Movie Page
   - Movie Header Section
@@ -42,32 +44,40 @@ so that I can view all the movie details, view my own review, and select a revie
     - year
     - genre
     - average rating
- - My Review Section
-    - Review summary
-    - count of likes and dislikes
-    - Edit My Review Button
+ - My Review Section (!)
+    - Review List Item (review exists)
+        - Review summary
+        - count of likes and dislikes
+        - Edit My Review Button
+    - Add My Review Button (no review exists)
 - List Top 5 reviews
+    - Review List
+        - Review List Item 
+            - Review summary
+            - count of likes and dislikes
+            - 'thumbs up' button(!)
+            - 'thumbs down' button(!)
 - List 5 More Reviews button
-- Add My Review Button
+    - Review List
+        
 
 ### Workflow
 
 1. Website displays movie details such as title, actors, year, genre, and average rating.
-1. If authenticated the website displays any existing movie review for the logged in user within a **My Review** section. See **View My Review**.
-1. If authenticated and no existing movie review exists for the logged in user, omit the **User Review** section.  
+1. If unauthenticated, the website omits the **My Review Section**.  
+1. If authenticated and an existing movie review exists for the logged in user, the website displays the movie review for the logged in user within a **My Review Section**.
 1. If authenticated and no existing movie review exists for the logged in user, provide an **Add Review** button.
-1. If unauthenticated, the website omits the **User Review** section.  
 1. Website displays a list of top 5 'most popular' reviews.  See **List 5 Reviews**.
 1. Website displays a **List 5 More Reviews** button/icon.
 
 ### Actionable Next Steps
 
-1. User may optionally react to an existing review via a like or dislike button/icon below the review text.  See `Add Reaction` user story.
-1. If the user has not provided a review for the current movie, user may elect to add a new review.  See `Add Review` user story. 
-1. If the user has provided a review for the current movie, user may elect to edit their review by simply clicking the review.  See `Edit Review` user story. 
+1. If the user is logged in they may **Add Reaction** to another user's existing review.
+1. If the user is logged in and has not provided a review for the current movie, user may elect to **Add My Review**. 
+1. If the user is logged in and has provided a review for the current movie, user may elect to **Edit My Review** by simply clicking the review.  
 1. User may elect to **List 5 More Reviews**  (infinate scroll).
-1. If logged out, the user may elect to login.  See `Login` user story. 
-1. If logged in, the user may elect to logout.  See `Logout` user story. 
+1. If logged out, the user may elect to **login**.
+1. If logged in, the user may elect to **logout**. 
 
 
 ## Add Reaction
@@ -76,7 +86,7 @@ so that I can view all the movie details, view my own review, and select a revie
 **component**: review list item
 
 As a user
-I'd like the ability to read the entire movie review, view the number of likes and dislikes, and optionally react by selecting either a 'thumbs up' or 'thumbs down' icon button. 
+I'd like the ability to read another user's entire movie review, view the number of likes and dislikes, and optionally react by selecting either a 'thumbs up' or 'thumbs down' icon button. 
 so that I can add my opinion to a good or bad movie review. 
 
 ### Workflow
@@ -92,19 +102,15 @@ so that I can add my opinion to a good or bad movie review.
     - reaction (like or dislike)
     - authenticated user
 1. If not authenticated, the website navigates the user to `/login` webpage.  Once logged in the user is navigated back to the `/movies/{id}/index` page, the selected review, and the previously selected like or dislike state is correctly displayed. 
-1. User may optionally de-select their previous reaction by clicking the reaction.  See `De-select Reaction` user story.
-1. User may optionally reverse their reaction by unliking a liked reaction or liking an unliked reaction.  See `Reverse Reaction` user story. 
-
+1. User may optionally **De-select Reaction** by clicking the reaction.
+1. User may optionally **Reverse Reaction** by unliking a liked reaction or liking an unliked reaction.  
 
 ### Actionable Next Steps
 
-1. `Login` user story
-1. `De-select Reaction` user story
-1. `Reverse Reaction` user story
-1. `Add Review` user story
-
-
-
+1. Login
+1. De-select Reaction
+1. Reverse Reaction
+1. Add My Review
 
 
 
@@ -192,6 +198,26 @@ Each review is displayed in an expandable list item.
 1. List Next 5 Popular Reviews
 1. Add Review
 
+## List 5 More Reviews
+
+As a user
+I'd like the ability to view the next 5 most popular reviews
+so that continue to view reviews and possibly react to the reviews
+
+### Workflow
+
+1. User is on the Movie Page (`/movies/{id}/index`).
+1. User selects the **more reviews** (List 5 More Reviews) button.
+1. Website retrieves the next 5 reviews
+1. Website appends the list of reviews to the bottom of the existing displayed reviews. See **List 5 Reviews**.
+
+### Actionable Next Steps
+
+1. See **List 5 Reviews** actionbable next steps. 
+
+
+
+
 
 ## View My Review
 
@@ -209,22 +235,6 @@ so that I can read the entire review, react to another user's review or add my o
     - the entire review within the expanded list item, 
     - A thumbs up (like) icon along with a count of likes for the selected review.
     - A thumbs down (unlike) icon along with a count of unlikes for the selected review.
-
-
-## List 5 More Reviews
-
-As a user
-I'd like the ability to 
-so that 
-
-### Workflow
-
-1. 
-
-### Actionable Next Steps
-
-1. 
-
 
 
 
