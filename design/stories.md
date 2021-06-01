@@ -33,34 +33,6 @@ As a user
 I'd like the ability to see the movie title, actors, year, genre, average rating, and list of top 5 'most popular' reviews
 so that I can view all the movie details, view my own review, and select a review to view the complete review and its associated reactions. I may also list additional reviews, 5 at a time. 
 
-### Component Display
-
-(!) -- Requires Login
-
-- Movie Page
-  - Movie Header Section
-    - title
-    - actors
-    - year
-    - genre
-    - average rating
- - My Review Section (!)
-    - Review List Item (review exists)
-        - Review summary
-        - count of likes and dislikes
-        - Edit My Review Button
-    - Add My Review Button (no review exists)
-- List Top 5 reviews
-    - Review List
-        - Review List Item 
-            - Review summary
-            - count of likes and dislikes
-            - 'thumbs up' button(!)
-            - 'thumbs down' button(!)
-- List 5 More Reviews button
-    - Review List
-        
-
 ### Workflow
 
 1. Website displays movie details such as title, actors, year, genre, and average rating.
