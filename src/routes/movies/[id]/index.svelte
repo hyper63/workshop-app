@@ -22,15 +22,17 @@
 </script>
 <script>
   //export let movieId
+  import Header from '$lib/header.svelte'  
   export let movie = {}
 
 
 </script>
 
+<Header title={movie.title}/>
+
 <main class="mx-4 my-4 overflow-x-hidden">
-    <h1 class="text-green-600 text-6xl">Movie</h1>
     <section class="mt-4">
-      <h2>id: {movie.id} - title: {movie.title}</h2>
+      <h2>id: {movie.id}</h2>
       <p>year: {movie.year}</p>
       <p>actors: {movie.actors}</p>
       <p>genre: {movie.genre}</p>

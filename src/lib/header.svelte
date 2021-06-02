@@ -11,14 +11,16 @@
     function isCurrentPage(ref) {
       return window.location.pathname === ref ? 'active' : 'link'
     }
-    </script>
+
+    export let title = "hyper movies"
+</script>
     <header class="w-full flex justify-between mt-4 ml-4 md:mt-20 md:ml-24 md:mr-4">
       <a href="/">
       <section class="flex items-center width-full">
         <!-- logo -->
         <img src="/logo.svg" alt="hyper logo" />
         <!-- name -->
-        <h3 class="ml-3">hyper movies</h3>
+        <h3 class="ml-3">{title}</h3>
       </section>
       </a>
       <section class="md:hidden">
