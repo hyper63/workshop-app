@@ -228,7 +228,6 @@ so that I can remove the reaction from the movie review.
 ### Actionable Next Steps
 
 1. Add Reaction
-1. Add Reaction
 1. Add Movie Review
 1. Edit Movie Review
 1. Reverse Reaction
