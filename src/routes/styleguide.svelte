@@ -282,6 +282,13 @@
       <Search />
       <h4 class="mt-8 mb-3">Input</h4>
       <Input />
+      <h5>code</h5>
+      <pre>
+        <code>
+  {`  <Search />
+  <Input />`}
+        </code>
+      </pre>
       
   
       <h4 class="mt-8">Toggle</h4>
