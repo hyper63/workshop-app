@@ -1,46 +1,84 @@
 <script>
   import Header from '$lib/header.svelte'  
   import Button from '$lib/button.svelte'
-   import Input from '$lib/input.svelte'
-  //import Section from '$lib/section.svelte'
+  import Input from '$lib/input.svelte'
+  import MovieSearchResultItem from '$lib/movie-search-result-item.svelte'
+  import { propOr } from 'ramda';
+  //let movie = {title:"Caddyshack", actors:["Chase", "Dangerfield", "Murray"], year: "1980", genre:"comedy", avgRating:"3.5"}
+  
+  let searchCriteria = '';
+  let searching = false
+  let error = false
+  let errorStatusMsg = ''
+  let searchResultMovies = []
+  async function handleSubmit(e) {
+      searchResultMovies = []
+      searching = true
+      console.log('search home handleSubmit!', {searchCriteria})
+
+
+      const res = await fetch(`/api/movies/search.json`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({title: searchCriteria})
+      })
+      if (res.ok) {
+        const response = await res.json()
+        console.log('SEARCH HOME SUBMIT SUCCESS!', {response})
+        searchResultMovies= propOr([] ,"matches",response)
+
+        searching = false
+        error=false
+        errorStatusMsg = ''
+        
+        
+  
+      } else {
+        searchResultMovies = []
+        searching = false
+        error = true
+        errorStatusMsg = 'Error searching movies'
+
+        console.log("SEARCH HOME SUBMIT FAILURE!", {res})
+      }
+    
+  }
+
+
+
+
 </script>
 <svelte:head>
   <title>hyper movie reviews and reactions</title>
 </svelte:head>
-<Header title="hyper search"/>
+<Header title="hyper movies"/>
 
-<main class="mt-4 ml-4 md:mt-20 md:ml-24 md:mr-4">
-  <section class="pl-4">
-    <div class="flex flex-col pr-4 items-center">
+ <!-- <main class="mt-4 ml-4 md:mt-20 md:ml-24 md:mr-4"> -->
+  <main class="mt-4 ml-2 md:mt-20 md:ml-24 md:mr-4">
+    <form on:submit|preventDefault={handleSubmit}>
+      <section class="pl-2">
+        <div class="flex flex-col pr-6 items-center">
 
-      <Input name="foo" styles="w-full" focus=true/>
-     
-      <div class="mt-4">
-        <a class="" href="/movies/roadhouse">
-          <Button>Search</Button>
-        </a>
-      </div>
+          <Input bind:value={searchCriteria} name="searchText" styles="w-full" focus=true/>
+        
+          <div class="mt-4">
+            
+              <Button type="submit">Search</Button>
+           
+          </div>
+        </div>
+      </section>
+    </form>
+  <section class="mt-4">
+    <div class="bg-white shadow overflow-hidden sm:rounded-md">
+      <ul class="divide-y divide-gray-200">
+        {#each searchResultMovies as movie}
+          <MovieSearchResultItem {movie}/>
+        {/each}
+      </ul>
     </div>
   </section>
 
-   <!-- <Section id="data" styles="md:mt-96" image="right">
-   <span slot="text">
-      <div class="flex flex-col items-center">
-        <h2 class="text-2xl px-4 md:text-center md:text-5xl">Data Service</h2>
-        <p class="text-base mx-4 mt-4 text-darkgray md:w-1/2 md:text-center">
-          API powered data access:
-        </p>
-        <ul class="font-mono md:mt-8 bg-black text-white rounded-lg p-8">
-          <li><span class="text-green"># Create </span><br />{'POST /data/{app} -d {...}'}</li>
-          <li><span class="text-green"># Read </span><br />{'GET /data/{app}/:id'}</li>
-          <li><span class="text-green"># Update </span><br />{'PUT /data/{app}/:id -d {...}'}</li>
-          <li><span class="text-green"># Delete </span><br />{'DELETE /data/{app}/:id'}</li>
-          <li><span class="text-green"># Query </span><br />{'POST /data/{app}/_query -d { selector }'}</li>
-        </ul>
-      </div>
-    </span>
-    <span slot="image">
-      <img src="data-lg.svg" alt="data" /> 
-    </span> 
-  </Section> -->
   </main>

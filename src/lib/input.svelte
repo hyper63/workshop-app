@@ -7,7 +7,6 @@
 
     function init(el){
       focus ? el.focus(): null
-      
     }
     </script>
     <div class="flex border-3 p-1 rounded-large {focus ? 'border-blue' : 'border-lightgray'} {styles}">
@@ -27,8 +26,6 @@
         outline: none;
 
       }
-      div {
-        min-width: 300px;
-      }
+     
     </style>
     

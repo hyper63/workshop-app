@@ -2,7 +2,7 @@
   let movieId = null
   export async function load({ page, fetch }) {
      movieId = page.params.id
-     console.log("Hello", JSON.stringify(page))
+     console.log("Movie Display Page", `/api/movies/${movieId}.json` , JSON.stringify(page))
      const res = await fetch(`/api/movies/${movieId}.json`)
     
      if (res.ok) {
@@ -23,8 +23,8 @@
 <script>
   //export let movieId
   import Header from '$lib/header.svelte'  
-  export let movie = {}
-
+  export let movie 
+  console.log('movies/[id]/index.svelte', {movie})
 
 </script>
 

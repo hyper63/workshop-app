@@ -11,6 +11,13 @@ so that I can simply search for movies, select a movie, review its details, revi
 
 - Header
 - Search
+- Movies List Results
+    - Movie List Item
+        - title
+        - actors
+        - year
+        - genre
+        - average rating
 
 ## On Search
 

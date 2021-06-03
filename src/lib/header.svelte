@@ -14,7 +14,7 @@
 
     export let title = "hyper movies"
 </script>
-    <header class="w-full flex justify-between mt-4 ml-4 md:mt-20 md:ml-24 md:mr-4">
+    <header class="flex justify-between mt-4 ml-4 md:mt-20 md:ml-24 md:mr-4">
       <a href="/">
       <section class="flex items-center width-full">
         <!-- logo -->
@@ -35,7 +35,7 @@
           </svg>
         </button>
       </section>
-      <nav class="hidden md:w-1/2 md:block flex items-center space-x-4">
+      <nav class="hidden md:w-1/2 md:block  items-center space-x-4">
         <!--
         <a class="font-space uppercase text-sm" href="/login">login</a>
         

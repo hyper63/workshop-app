@@ -17,6 +17,8 @@ const url = 'https://moviereview-api.hyper.io/api/movies'
 */
 
 export async function get({ params }) {
+
+    console.log('routes api/movies/[id].json.js get', url + '/' + params.id)
     //const bearer = token()
     const movie = await fetch(url + '/' + params.id, {
       method: 'GET'
@@ -26,3 +28,6 @@ export async function get({ params }) {
     }
   
   }
+
+
+  
