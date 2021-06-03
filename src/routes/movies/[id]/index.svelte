@@ -23,7 +23,10 @@
   import MovieBanner from '$lib/movie-banner.svelte'
   export let movie 
   let title = `${movie.title} - ${movie.year}`
-  
+
+  movie = {...movie, avgRating: movie.avgRating || 'N/A'}
+
+  //let {actors, year, genre, avgRating, summary, bannerURL } = movie
 </script>
 
 <Header {title}/>

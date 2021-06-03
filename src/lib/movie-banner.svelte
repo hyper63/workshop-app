@@ -1,7 +1,7 @@
 <script>
     import { equals, cond, always, T} from 'ramda'
     export let movie = {}
-    let {title, actors, year, genre, avgRating, summary, bannerURL } = movie
+    let {actors, genre, avgRating, summary, bannerURL } = movie
 console.log('bannerurl', bannerURL)
     const calcGenreColor =  cond([
         [equals('comedy'),   always('green')],
@@ -37,7 +37,7 @@ console.log('bannerurl', bannerURL)
                 </p>
               </div>
               <footer class="mt-4">
-                <p class="text-base font-medium text-whitesmoke">Rating: {avgRating}</p>
+                <p class="text-base font-medium text-whitesmoke">Stars/Rating: {avgRating}</p>
                 <p class="text-base font-medium text-whitesmoke">Actors: {actors}</p>
               </footer>
             </blockquote>
