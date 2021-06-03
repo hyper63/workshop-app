@@ -13,9 +13,6 @@
       }
 
      }
-    //  return { props: {
-    //    movieId
-    //  }}
   }
 
 
@@ -23,19 +20,15 @@
 <script>
   //export let movieId
   import Header from '$lib/header.svelte'  
+  import MovieBanner from '$lib/movie-banner.svelte'
   export let movie 
-  console.log('movies/[id]/index.svelte', {movie})
-
+  let title = `${movie.title} - ${movie.year}`
+  
 </script>
 
-<Header title={movie.title}/>
+<Header {title}/>
 
-<main class="mx-4 my-4 overflow-x-hidden">
-    <section class="mt-4">
-      <h2>id: {movie.id}</h2>
-      <p>year: {movie.year}</p>
-      <p>actors: {movie.actors}</p>
-      <p>genre: {movie.genre}</p>
-
-    </section>
+<main class="overflow-x-hidden">
+    <MovieBanner {movie}/>
 </main>
+

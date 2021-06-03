@@ -107,7 +107,7 @@
         
         {:else if !searching && not(isEmpty(searchResultMovies))}
           <ul>
-	          {#each searchResultMovies as movie (movie.id)}
+	          {#each searchResultMovies as movie (movie)}
               <MovieSearchResultItem {movie}/>
             {/each}
           </ul>

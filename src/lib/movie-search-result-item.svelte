@@ -4,7 +4,7 @@
  let {id, title, actors, year, genre, avgRating} = movie
  
  avgRating = avgRating || 0
- //scifi action
+
  const calcGenreColor =  cond([
   [equals('comedy'),   always('green')],
   [equals('horror'), always('black')],
