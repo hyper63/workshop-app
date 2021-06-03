@@ -2,7 +2,7 @@
  import { equals, cond, always, T} from 'ramda'
  export let movie = {}
  let {id, title, actors, year, genre, avgRating} = movie
-
+ 
  avgRating = avgRating || 0
  //scifi action
  const calcGenreColor =  cond([
@@ -15,12 +15,14 @@
   [T,           always('darkgray')]
 ])
 
+
 const genreColor = calcGenreColor(genre)
 </script>
 
-<li>
+<li class="px-4 py-4 sm:px-6">
+  
     <a href="/movies/{id}" class="block hover:bg-gray-50">
-      <div class="px-4 py-4 sm:px-6">
+      <div >
         <div class="flex items-center justify-between">
           <p class="text-sm font-medium text-orange truncate">
             {title}
