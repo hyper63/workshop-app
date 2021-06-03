@@ -32,13 +32,13 @@ console.log('bannerurl', bannerURL)
           <div class="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:px-0 lg:py-20 lg:max-w-none">
             <blockquote>
               <div>
-                <p class="mt-4 text-2xl font-medium text-white">
+                <p class="mt-4 text-1l font-medium text-white">
                   {summary}
                 </p>
               </div>
               <footer class="mt-4">
-                <p class="text-base font-medium text-whitesmoke">Stars/Rating: {avgRating}</p>
-                <p class="text-base font-medium text-whitesmoke">Actors: {actors}</p>
+                <p class="text-base font-small text-whitesmoke">Stars/Rating: {avgRating}</p>
+                <p class="text-base font-small text-whitesmoke">Actors: {actors}</p>
               </footer>
             </blockquote>
           </div>

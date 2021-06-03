@@ -20,7 +20,7 @@
 <script>
   //export let movieId
   import Header from '$lib/header.svelte'  
-  import MovieBanner from '$lib/movie-banner.svelte'
+  import MovieHeader from '$lib/movie-header.svelte'
   export let movie 
   let title = `${movie.title} - ${movie.year}`
 
@@ -32,6 +32,6 @@
 <Header {title}/>
 
 <main class="overflow-x-hidden">
-    <MovieBanner {movie}/>
+    <MovieHeader {movie}/>
 </main>
 
