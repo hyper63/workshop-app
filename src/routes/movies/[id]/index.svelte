@@ -6,7 +6,6 @@
      const movieRes = await fetch(`/api/movies/${movieId}.json`)
      
      if (movieRes.ok) {
-       
       const movie = await movieRes.json()
       return {
         props: {
@@ -15,8 +14,6 @@
       }
      }
   }
-
-
 </script>
 <script>
   //export let movieId

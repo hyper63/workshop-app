@@ -43,3 +43,13 @@ so that I can view all the movie details, view my own review, and select a revie
     - Filter reviews using `start` and `end` params
 1. `calcMovieStatistics(movie, arrReviews) => movie stats object` with these props. 
     - `avgRating` - used to provide average rating within Movie Header Section
+
+
+// reactions
+app.get('/api/reviews/:id/reactions', reactionsByReview)
+
+const reactionsByReview = require('./api/reviews/[id]/reactions.js').get
+
+/api/reviews/[id]/reactions.js GET
+  - core.reactions.byReview(params.id)
+
