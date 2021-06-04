@@ -24,12 +24,60 @@ so that I can view all the movie details, view my own review, and select a revie
   - List Top 5 reviews
     - Review List
         - Review List Item 
-            - Review summary
-            - count of likes and dislikes
+            - [x] Review summary
+            - [x] count of likes and dislikes
             - 'thumbs up' button(!)
             - 'thumbs down' button(!)
   - List 5 More Reviews button
     - Review List
+
+
+MONDAY TODO 
+
+- Top 5
+  - get all reviews 
+  - sort by counts.count in desc order of popularity. https://ramdajs.com/docs/#sortWith
+  - return page of reviews using a startIndex, pageSize .  See js below
+    - 
+    - startIndex=0, pageSize=5
+    - next call startIndex=5, pageSize = 5 
+
+- More Top 5
+
+```js
+const personnel = [
+  'Dave Brubeck',
+  'Paul Desmond',
+  'Eugene Wright',
+  'Joe Morello',
+  'Gerry Mulligan',
+  'Bob Bates',
+  'Joe Dodge',
+  'Ron Crotty'
+];
+
+
+
+function page({startIndex=0, pageSize=5}, data) {
+  return compose(
+    take(pageSize),
+    drop(startIndex)
+  )(data)
+}
+
+
+console.log('page 1', page({startIndex:0, pageSize:5}, personnel))
+
+console.log('next 5 ', page({startIndex:5, pageSize:5}, personnel))
+```
+
+
+
+- Calculate Stars/Rating average bases upon the TOTAL number of ratings for EVERY SINGLE REVIEW for the movie.  (query in api has a limit, ouch)
+  - calculate the average for the movie using the cache.
+- convert Rating to heroicon Stars on the movies-page's review-item oooh hard.  See lib/stars-rating.svelte
+
+
 
 ## On Load
 
