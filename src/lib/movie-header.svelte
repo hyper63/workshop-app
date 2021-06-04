@@ -2,7 +2,12 @@
     import { equals, cond, always, T} from 'ramda'
     export let movie = {}
     let {actors, genre, avgRating, summary, bannerURL } = movie
-console.log('bannerurl', bannerURL)
+
+    avgRating = avgRating || 'N/A'
+    summary = summary || ''
+    bannerURL = bannerURL || ''
+    actors = actors || []
+    
     const calcGenreColor =  cond([
         [equals('comedy'),   always('green')],
         [equals('horror'), always('darkgray')],
@@ -13,6 +18,7 @@ console.log('bannerurl', bannerURL)
         [T, always('lightgray')]
     ])
     const genreColor = calcGenreColor(genre)
+
 
 </script>
 

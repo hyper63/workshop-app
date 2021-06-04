@@ -14,7 +14,12 @@ export async function post({ body }) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(body)
-    }).then(r => r.json())
+
+      
+    }).then(r => {
+      console.log('routes/api/movies/search.json.js post() result', r)
+      return r.json()
+    })
   
     return {
       body: result

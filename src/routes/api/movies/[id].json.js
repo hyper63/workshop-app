@@ -1,9 +1,8 @@
 //import { token } from '$lib/config.js'
 import fetch from 'node-fetch'
-
+import {propOr} from 'ramda'
 //const url = 'https://moviereview-api.hyper.io/api/movies'
 const url = 'https://3000-salmon-antlion-fwwak7ju.ws-us08.gitpod.io/api/movies'
-
 
 //https://moviereview-api.hyper.io/api/movies/roadhouse
 /*
@@ -25,11 +24,18 @@ export async function get({ params }) {
     const movie = await fetch(url + '/' + params.id, {
       method: 'GET'
     }).then(r => r.json())
-    return {
-      body: movie
-    }
-  
-  }
+    
+    const reviews = await fetch(url + '/' + params.id + '/reviews', {
+      method: 'GET'
+    }).then(r => r.json())
 
+    
+    movie.reviews = propOr([], "docs", reviews)
 
-  
+      return {
+        body: movie
+      }
+
+    
+
+}
