@@ -38,9 +38,10 @@ MONDAY TODO
   - get all reviews 
   - sort by counts.count in desc order of popularity. https://ramdajs.com/docs/#sortWith
   - return page of reviews using a startIndex, pageSize .  See js below
-    - 
     - startIndex=0, pageSize=5
     - next call startIndex=5, pageSize = 5 
+  - show 'next' down arrow in UI.  if count of reviews in page is lt the page size then youre at the last page and dont show the next button arrow.  
+  - when next arrow is clicked, get next page of reviews and append to current list of reviews in the ui.
 
 - More Top 5
 
@@ -56,8 +57,6 @@ const personnel = [
   'Ron Crotty'
 ];
 
-
-
 function page({startIndex=0, pageSize=5}, data) {
   return compose(
     take(pageSize),
@@ -65,13 +64,9 @@ function page({startIndex=0, pageSize=5}, data) {
   )(data)
 }
 
-
 console.log('page 1', page({startIndex:0, pageSize:5}, personnel))
-
 console.log('next 5 ', page({startIndex:5, pageSize:5}, personnel))
 ```
-
-
 
 - Calculate Stars/Rating average bases upon the TOTAL number of ratings for EVERY SINGLE REVIEW for the movie.  (query in api has a limit, ouch)
   - calculate the average for the movie using the cache.
