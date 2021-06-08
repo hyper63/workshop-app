@@ -3,8 +3,8 @@
   export async function load({ page, fetch }) {
      movieId = page.params.id
      console.log("Movie Display Page", `/api/movies/${movieId}.json` , JSON.stringify(page))
-     const movieRes = await fetch(`/api/movies/${movieId}.json`)
-     
+     const movieRes = await fetch(`/api/movies/${movieId}.json?startindex=0&pagesize=5`)
+
      if (movieRes.ok) {
       const movie = await movieRes.json()
       return {
