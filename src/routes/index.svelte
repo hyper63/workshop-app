@@ -13,15 +13,11 @@
   let error = false
   let errorStatusMsg = ''
   let searchResultMovies = []
-  let fresh = true
-
 
   async function handleSubmit(e) {
       searchResultMovies = []
       searching = true
-      console.log('search home handleSubmit!', {searchCriteria})
-
-
+     
       const res = await fetch(`/api/movies/search.json`, {
         method: 'POST',
         headers: {
@@ -38,30 +34,20 @@
         searching = false
         error=false
         errorStatusMsg = ''
-        
-        
   
       } else {
         searchResultMovies = []
         searching = false
         error = true
         errorStatusMsg = 'Error searching movies'
-
         console.log("SEARCH HOME SUBMIT FAILURE!", {res})
       }
-    
   }
-
-
-
-
 </script>
 <svelte:head>
   <title>hyper movie reviews and reactions</title>
 </svelte:head>
 <Header title="hyper movies"/>
-
- <!-- <main class="mt-4 ml-4 md:mt-20 md:ml-24 md:mr-4"> -->
   <main class="mt-4 ml-2 md:mt-20 md:ml-24 md:mr-4">
     <form on:submit|preventDefault={handleSubmit}>
       <section class="pl-2">

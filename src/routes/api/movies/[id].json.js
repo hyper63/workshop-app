@@ -4,9 +4,6 @@ import {propOr} from 'ramda'
 //const url = 'https://moviereview-api.hyper.io/api/movies'
 const moviesURL = 'https://3000-salmon-antlion-fwwak7ju.ws-us08.gitpod.io/api/movies'
 
-
-
-//export async function get({ params, query, url }) {
 export async function get(req) {
   const {params} = req
   //const bearer = token()
@@ -23,11 +20,8 @@ export async function get(req) {
     method: 'GET'
   }).then(r => r.json())
 
-  //console.log('app reviews', JSON.stringify(reviews, null, 2))
   movie.reviews = propOr([], "docs", reviews)
-
-  console.log(JSON.stringify(movie, null, 2))
-
+  
   return {
     body: movie
   }
