@@ -51,8 +51,10 @@ MONDAY TODO
 - Calculate Stars/Rating average bases upon the TOTAL number of ratings for EVERY SINGLE REVIEW for the movie.  (query in api has a limit, ouch)
   - calculate the average for the movie using the cache.
 - convert Rating to heroicon Stars on the movies-page's review-item oooh hard.  See lib/stars-rating.svelte
-
-
+  HOW to get it done.
+  - As a review is added, add the review to the cache.
+    - key: movie-{movie.id}
+    - value: {avgRating: 3.4}
 
 ## On Load
 
