@@ -4,7 +4,7 @@
   export async function load({ page, fetch }) {
      movieId = page.params.id
      const startindex = 0
-     const pagesize = 2
+     const pagesize = 5
      const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=${pagesize}`
      const movieRes = await fetch(url)
 
