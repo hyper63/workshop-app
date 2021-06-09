@@ -39,6 +39,8 @@
   export let showNextPage = true
   let title = `${movie.title} - ${movie.year}`
   export let reviews
+
+  
   
 
   async function handleMoreReviews(e) {

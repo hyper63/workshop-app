@@ -1,5 +1,6 @@
 <script>
-    import { equals, cond, always, T} from 'ramda'
+    import Stars from '$lib/stars-rating.svelte'
+    import { equals, cond, always, T, propOr} from 'ramda'
     export let movie = {}
     let {actors, genre, avgRating, summary, bannerURL } = movie
 
@@ -18,7 +19,8 @@
         [T, always('lightgray')]
     ])
     const genreColor = calcGenreColor(genre)
-
+    const stars = propOr( null,'stars',movie)
+    
 
 </script>
 
@@ -42,9 +44,9 @@
                   {summary}
                 </p>
               </div>
-              <footer class="mt-4">
-                <p class="text-base font-small text-whitesmoke">Stars/Rating: {avgRating}</p>
-                <p class="text-base font-small text-whitesmoke">Actors: {actors}</p>
+              <Stars rating={stars}/>
+              <footer class="mt-4">    
+                <p class="text-base font-small text-whitesmoke">Actors: {actors} {stars}</p>
               </footer>
             </blockquote>
           </div>
