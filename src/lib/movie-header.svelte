@@ -44,9 +44,9 @@
                   {summary}
                 </p>
               </div>
-              <Stars rating={stars}/>
+              <Stars rating={stars} bgColor={genreColor}/>
               <footer class="mt-4">    
-                <p class="text-base font-small text-whitesmoke">Actors: {actors} {stars}</p>
+                <p class="text-base font-small text-whitesmoke">Actors: {actors}</p>
               </footer>
             </blockquote>
           </div>
