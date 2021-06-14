@@ -32,49 +32,50 @@ so that I can view all the movie details, view my own review, and select a revie
     - Review List
 
 
-MONDAY TODO 
-
-- Top 5
-  - get all reviews 
-  - sort by counts.count in desc order of popularity. https://ramdajs.com/docs/#sortWith
-  - return page of reviews using a startIndex, pageSize .  See js below
-    - startIndex=0, pageSize=5
-    - next call startIndex=5, pageSize = 5 
-  
-  
-  - TODO: 
-  show 'next' down arrow in UI.  if count of reviews in page is lt the page size then youre at the last page and dont show the next button arrow.  
-  - when next arrow is clicked, get next page of reviews and append to current list of reviews in the ui.
-
-- More Top 5
-
-- Calculate Stars/Rating average bases upon the TOTAL number of ratings for EVERY SINGLE REVIEW for the movie.  (query in api has a limit, ouch)
-  - calculate the average for the movie using the cache.
-- convert Rating to heroicon Stars on the movies-page's review-item oooh hard.  See lib/stars-rating.svelte
-  HOW to get it done.
-  - As a review is added, add the review to the cache.
-    - key: movie-{movie.id}
-    - value: {avgRating: 3.4}
-
-## On Load
-
-1. Get movie id from path 
-1. `getMovie(movie id) => CurrentMovie` - API call to `GET /api/movies/:id` --> `./api/movies/[id].get`
-1. `loggedIn ? getMyReview(movie id) => MyReview (Review)`
-    - API call to `GET /api/reviews` --> `.api/reviews.get` --> `core.reviews.byUser(user)`
-    - Filter reviews by the movie retrieved from `getMovie()`.
-1. `getMovieReviews(movie id, start=0, end=4) => Listing 5 Reviews` using start and end
-    - API Call to `GET /api/movies/:id/reviews` --> `.api/movies/[id]/reviews.js` --> `core.reviews.byMovie(id)`
-    - Filter reviews using `start` and `end` params
-1. `calcMovieStatistics(movie, arrReviews) => movie stats object` with these props. 
-    - `avgRating` - used to provide average rating within Movie Header Section
+TODO 
 
 
-// reactions
-app.get('/api/reviews/:id/reactions', reactionsByReview)
+## List My Review
 
-const reactionsByReview = require('./api/reviews/[id]/reactions.js').get
+As a logged in user
+I want the ability to view my review of a movie on the movie page
+so that I can review my review and optionally edit the review.
 
-/api/reviews/[id]/reactions.js GET
-  - core.reactions.byReview(params.id)
+Tasks
+
+- Mock the currently logged in user as a prop?
+- Create MyReview svelte component that houses a single Review Item
+  - My Review Section (!)
+    - Review List Item (logged in and && review exists for currently logged in user)
+        - Review summary
+        - count of likes and dislikes
+        - Edit My Review Button
+    - Add My Review Button (loggedn in && no review exists for currently logged in user)
+- In the movie page, Filter the reviews for the logged in current user.  If exists, display the MyReview svelte component. 
+- If not logged in then display Login button.
+
+
+## Edit My Review
+
+
+## Add Reaction
+
+As a user 
+Id like to add a reaction 
+so that I can like or dislike another user's movie review.
+
+### curve balls
+- If I liked/disliked a reaction, then the button/graphic should be filled. 
+- If I change an existing reaction, then I will need to PUT otherwise POST.
+
+### restrictions
+
+- Filter out my review from the typical list of reviews.
+- if I am the user who wrote the review, then I can not add a reaction. 
+
+### Tasks
+
+
+
+
 

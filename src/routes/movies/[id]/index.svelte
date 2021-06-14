@@ -1,6 +1,6 @@
 <script context="module">
   let movieId = null
-  import { propOr, length } from 'ramda';
+  import { propOr, length, reject, filter, head } from 'ramda';
   export async function load({ page, fetch }) {
      movieId = page.params.id
      const startindex = 0
@@ -9,7 +9,10 @@
      const movieRes = await fetch(url)
 
      if (movieRes.ok) {
+
+  
       const movie = await movieRes.json()
+      //console.log('MOVIE *****: ', JSON.stringify(movie, null, 2))
       const reviews = propOr([], 'reviews', movie)
       const showNextPage = length(reviews) < pagesize ? false : true
       return {
@@ -32,16 +35,19 @@
   import MovieHeader from '$lib/movie-header.svelte'
   import ReviewItem from '$lib/review-item.svelte'
   import ButtonCircle from '$lib/button-circle.svelte'
-  
+  import MyReview from '$lib/my-review.svelte'
+ 
+ 
   export let movie 
   export let startindex
   export let pagesize
   export let showNextPage = true
+  export let loggedInUser = 'Ott'
   let title = `${movie.title} - ${movie.year}`
   export let reviews
 
-  
-  
+  const otherReviews = reject(r => r.author === loggedInUser, reviews)
+  const myReview = head(filter(r => r.author === loggedInUser, reviews))   
 
   async function handleMoreReviews(e) {
     startindex += pagesize
@@ -59,8 +65,11 @@
 
 <main class="overflow-x-hidden">
     <MovieHeader {movie}/>
+    <!-- // {#if loggedInUser && not(isEmpty(review)) && loggedInUser === propOr( null,'author',review)} -->
+
+    <MyReview {loggedInUser} review={myReview} movieId={movie.id}/>
     <ul>
-      {#each reviews as review, i (review)}
+      {#each otherReviews as review, i (review)}
         <ReviewItem {review} itemId={i}/>
       {/each}
       

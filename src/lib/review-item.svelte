@@ -5,10 +5,15 @@
     rating = rating || 'N/A'
     summary = summary || ''
     author = author || 'N/A'
-    const bgColor = itemId % 2 === 0 ? "white" : 'whitesmoke'
+    export let bgColor 
+
+    console.log({bgColor})
+    bgColor = bgColor ? bgColor:  itemId % 2 === 0 ? "white" : 'whitesmoke'
+    console.log({bgColor})
+
 </script>
 
-<li class="col-span-1 bg-{bgColor} shadow ">
+<li class="col-span-1 bg-{bgColor}">
   <div class="w-full flex items-center justify-between p-4 space-x-2">
     <div class="flex-1 ">
       <div class="flex items-center space-x-3">

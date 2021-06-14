@@ -5,6 +5,7 @@
   import MovieSearchResultItem from '$lib/movie-search-result-item.svelte'
   import { propOr, not, isEmpty, isNil } from 'ramda';
   
+  
 	import { quintOut } from 'svelte/easing';
 	import { fade, draw, fly } from 'svelte/transition';
 
@@ -13,7 +14,7 @@
   let error = false
   let errorStatusMsg = ''
   let searchResultMovies = []
-
+  
   async function handleSubmit(e) {
       searchResultMovies = []
       searching = true
