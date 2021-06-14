@@ -1,11 +1,12 @@
 <script context="module">
   let movieId = null
-  import { propOr, length, reject, filter, head } from 'ramda';
+  import { propOr, length, reject, filter, head, compose, take } from 'ramda';
   export async function load({ page, fetch }) {
      movieId = page.params.id
      const startindex = 0
      const pagesize = 5
-     const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=${pagesize}`
+     //const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=${pagesize}`
+     const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=1000`
      const movieRes = await fetch(url)
 
      if (movieRes.ok) {
@@ -13,8 +14,15 @@
   
       const movie = await movieRes.json()
       //console.log('MOVIE *****: ', JSON.stringify(movie, null, 2))
-      const reviews = propOr([], 'reviews', movie)
-      const showNextPage = length(reviews) < pagesize ? false : true
+
+      const reviews = compose(
+        take(5),
+        propOr([], 'reviews')
+      )(movie)
+
+
+      //const reviews = propOr([], 'reviews', movie)
+      const showNextPage = length(movie.reviews) < pagesize ? false : true
       return {
         props: {
           movie,
@@ -46,7 +54,7 @@
   let title = `${movie.title} - ${movie.year}`
   export let reviews
 
-  const otherReviews = reject(r => r.author === loggedInUser, reviews)
+  let otherReviews = reject(r => r.author === loggedInUser, reviews)
   const myReview = head(filter(r => r.author === loggedInUser, reviews))   
 
   async function handleMoreReviews(e) {
@@ -55,7 +63,7 @@
      const movieRes = await fetch(url)
      if (movieRes.ok) {
        const nextPageReviews = (await movieRes.json()).reviews
-       reviews = [...reviews, ...nextPageReviews]
+       otherReviews = [...otherReviews, ...nextPageReviews]
        showNextPage = length(nextPageReviews) < pagesize ? false : true
      }
   }
