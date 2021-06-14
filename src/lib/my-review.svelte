@@ -19,7 +19,7 @@
             <section class="pl-2 pb-4">
                 <div class="flex flex-col pr-6 items-center">          
                 <div class="mt-4 mb-4">
-                    <LinkBtn href="/movies/{movieId}/review/{review.id}/edit">Edit My Review</LinkBtn>
+                    <LinkBtn href="/movies/{movieId}/reviews/{review.id}/edit">Edit My Review</LinkBtn>
                 </div>
                 </div>
             </section>
