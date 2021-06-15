@@ -6,8 +6,6 @@
     export let review = {}
     export let loggedInUser = null
     export let handleSaveReaction
-
-   console.log({loggedInUser, review})
 </script>
 <div>
     <!-- // Review List Item (logged in and && review exists for currently logged in user) -->
@@ -42,8 +40,4 @@
             </div>
         </section>
     {/if}
-
-    
-        
-      
 </div>

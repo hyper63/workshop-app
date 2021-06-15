@@ -1,24 +1,60 @@
 <script context="module">
-    let movieId = null
-    export async function load({ page }) {
-       movieId = page.params.id
-       console.log("Hello", JSON.stringify(page))
-      
-       return { props: {
-         movieId
-       }}
-    }
-  
-  
-  </script>
-  <script>
-    export let movieId
-  
-  </script>
-  
-  <main class="mx-4 my-4 overflow-x-hidden">
-      <h1 class="text-green-600 text-6xl">Edit Review for {movieId}</h1>
-      <section class="mt-4">
+  export async function load({ page, fetch }) {
+    const url = `/api/reviews/${page.params.id}.json`
+    const res = await fetch(url)
+    if (res.ok) {
+      return {
+        props: {
         
-      </section>
-  </main>
+          review: await res.json()
+        }
+      }
+    }
+  }
+</script>
+
+<script>
+  import Header from '$lib/header.svelte'
+  import ReviewForm from '$lib/review-form.svelte'
+  import { goto } from '$app/navigation'
+  export let review = {}
+  let submitStatus = null 
+  let error = false
+
+  async function handleSubmit({detail}) {
+    const res = await fetch(`/api/reviews/${review.id}.json`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(detail)
+    })
+
+    if (res.ok) {
+      const response = await res.json()
+      submitStatus = 'Successfully saved review'  
+      setTimeout(() => goto(`/movies/${review.movieId}`), 1000)
+    } else {
+      error = true
+      submitStatus = 'Error occured saving review'
+    }
+  }
+</script>
+  
+
+<main>
+  <Header />
+  {#if submitStatus}
+    <div class="border rounded-lg border-{error ? 'red' : 'green'} p-4 m-16 relative">
+      <button class="absolute top-2 right-0" on:click={() => submitStatus = null}>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <div class="w-3/4">
+        <p>{submitStatus}</p>
+      </div>
+    </div>
+  {/if}
+  <ReviewForm {review} on:submit={handleSubmit} />
+</main>
