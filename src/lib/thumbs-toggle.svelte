@@ -16,14 +16,16 @@
   // {"id": "reaction-1-review-1-commando", "reviewId": "review-1-commando-1", "reaction": "dislike", "user": "Arnold"}
   function saveLike () {
     if (isNil(currentUsersReaction) && enableReaction) {
-      console.log('saveLike!!!')
+      currentUsersReaction = 'like'
+      likesCount +=1 
       dispatch('saveReaction', {"id": `reaction-${loggedInUser}-review-${reviewId}-${movieId}`, reviewId, reaction: 'like', "user": loggedInUser})
     }
   }
 
   function saveDislike () {
     if (isNil(currentUsersReaction) && enableReaction) {
-      console.log('saveDISLike!!!')    
+      currentUsersReaction = 'dislike'
+      dislikesCount +=1 
       dispatch('saveReaction', {"id": `reaction-${loggedInUser}-review-${reviewId}-${movieId}`, reviewId, reaction: 'dislike', "user": loggedInUser})
     }
   }
