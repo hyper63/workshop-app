@@ -11,9 +11,6 @@
   export let loggedInUser = null
   export let enableReaction = false
 
-//console.log('ThumbToggle', {currentUsersReaction})
-
-  // {"id": "reaction-1-review-1-commando", "reviewId": "review-1-commando-1", "reaction": "dislike", "user": "Arnold"}
   function saveLike () {
     if (isNil(currentUsersReaction) && enableReaction) {
       currentUsersReaction = 'like'

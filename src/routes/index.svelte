@@ -29,7 +29,7 @@
       if (res.ok) {
         searchResultMovies = []
         const response = await res.json()
-        console.log('SEARCH HOME SUBMIT SUCCESS!', {response})
+        
         searchResultMovies= propOr([] ,"matches",response)
 
         searching = false
@@ -41,7 +41,7 @@
         searching = false
         error = true
         errorStatusMsg = 'Error searching movies'
-        console.log("SEARCH HOME SUBMIT FAILURE!", {res})
+       
       }
   }
 </script>

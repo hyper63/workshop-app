@@ -1,6 +1,8 @@
+
 <script context="module">
+  import { propOr, length, reject, find, take } from 'ramda';
   let movieId = null
-  import { propOr, length, reject, filter, head, compose, take } from 'ramda';
+  
   export async function load({ page, fetch }) {
      movieId = page.params.id
      const startindex = 0
@@ -10,19 +12,10 @@
      const movieRes = await fetch(url)
 
      if (movieRes.ok) {
-
-  
       const movie = await movieRes.json()
-      //console.log('MOVIE *****: ', JSON.stringify(movie, null, 2))
-
-      const reviews = compose(
-        take(5),
-        propOr([], 'reviews')
-      )(movie)
-
-
-      //const reviews = propOr([], 'reviews', movie)
+      const reviews = propOr([], 'reviews', movie)
       const showNextPage = length(movie.reviews) < pagesize ? false : true
+
       return {
         props: {
           movie,
@@ -35,28 +28,26 @@
      }
   }
 </script>
-
-
-
 <script>
+  
+  import {loggedInUser} from '$lib/stores'
   import Header from '$lib/header.svelte'  
   import MovieHeader from '$lib/movie-header.svelte'
   import ReviewItem from '$lib/review-item.svelte'
   import ButtonCircle from '$lib/button-circle.svelte'
   import MyReview from '$lib/my-review.svelte'
  
- 
   export let movie 
   export let startindex
   export let pagesize
   export let showNextPage = true
-  export let loggedInUser = 'Ott'
-  let title = `${movie.title} - ${movie.year}`
   export let reviews
+  
+  const myReview = find(r => r.author === $loggedInUser, reviews) || {}
+  reviews = take(5, reviews)
 
-  let otherReviews = reject(r => r.author === loggedInUser, reviews)
-  const myReview = head(filter(r => r.author === loggedInUser, reviews))   
-
+  let title = `${movie.title} - ${movie.year}`
+  let otherReviews = reject(r => r.author === $loggedInUser, reviews)
   let saveReactionStatus
   let saveReactionError
 
@@ -65,7 +56,9 @@
     const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=${pagesize}`
      const movieRes = await fetch(url)
      if (movieRes.ok) {
-       const nextPageReviews = (await movieRes.json()).reviews
+       //let nextPageReviews = (await movieRes.json()).reviews
+       let nextPageReviews = reject(r => r.author === $loggedInUser, (await movieRes.json()).reviews)
+
        otherReviews = [...otherReviews, ...nextPageReviews]
        showNextPage = length(nextPageReviews) < pagesize ? false : true
      }
@@ -73,7 +66,7 @@
 
 
   async function handleSaveReaction({detail}) {
-      console.log('movie page handleSaveReaction', detail) 
+      
       const res = await fetch(`/api/reactions/post.json`, {
         method: 'POST',
         headers: {
@@ -82,7 +75,6 @@
         body: JSON.stringify(detail)
       })
 
-      console.log({res})
 
       if (res.ok) {
         const response = await res.json()
@@ -104,10 +96,10 @@
     <MovieHeader {movie}/>
     <!-- // {#if loggedInUser && not(isEmpty(review)) && loggedInUser === propOr( null,'author',review)} -->
 
-    <MyReview {handleSaveReaction} {loggedInUser} review={myReview} movieId={movie.id}/>
+    <MyReview {handleSaveReaction} loggedInUser={$loggedInUser} review={myReview} movieId={movie.id}/>
     <ul>
       {#each otherReviews as review, i (review)}
-        <ReviewItem {handleSaveReaction} enableReaction={true} {loggedInUser} {review} itemId={i}/>
+        <ReviewItem {handleSaveReaction} enableReaction={true} loggedInUser={$loggedInUser} {review} itemId={i}/>
       {/each}
       
     </ul>

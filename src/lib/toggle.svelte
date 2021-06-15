@@ -13,7 +13,6 @@
         const editedToggleData = {...data, active: toggleEnabled }
         dispatch('toggleSave', editedToggleData)
     }
-    //console.log({toggleEnabled})
 </script>
   <!-- This example requires Tailwind CSS v2.0+ -->
 <!-- Enabled: "bg-indigo-600", Not Enabled: "bg-gray-200" -->
