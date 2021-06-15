@@ -57,6 +57,9 @@
   let otherReviews = reject(r => r.author === loggedInUser, reviews)
   const myReview = head(filter(r => r.author === loggedInUser, reviews))   
 
+  let saveReactionStatus
+  let saveReactionError
+
   async function handleMoreReviews(e) {
     startindex += pagesize
     const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=${pagesize}`
@@ -67,6 +70,32 @@
        showNextPage = length(nextPageReviews) < pagesize ? false : true
      }
   }
+
+
+  async function handleSaveReaction({detail}) {
+      console.log('movie page handleSaveReaction', detail) 
+      const res = await fetch(`/api/reactions/post.json`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(detail)
+      })
+
+      console.log({res})
+
+      if (res.ok) {
+        const response = await res.json()
+        saveReactionStatus = 'Successfully saved reaction'  
+        //setTimeout(() => goto('/admin/cms/faqs'), 1000)
+        
+      } else {
+        saveReactionError = true
+        saveReactionStatus = 'Error occured saving reaction'
+      }
+    }
+
+
 </script>
 
 <Header {title}/>
@@ -75,10 +104,10 @@
     <MovieHeader {movie}/>
     <!-- // {#if loggedInUser && not(isEmpty(review)) && loggedInUser === propOr( null,'author',review)} -->
 
-    <MyReview {loggedInUser} review={myReview} movieId={movie.id}/>
+    <MyReview {handleSaveReaction} {loggedInUser} review={myReview} movieId={movie.id}/>
     <ul>
       {#each otherReviews as review, i (review)}
-        <ReviewItem {review} itemId={i}/>
+        <ReviewItem {handleSaveReaction} enableReaction={true} {loggedInUser} {review} itemId={i}/>
       {/each}
       
     </ul>

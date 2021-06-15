@@ -65,17 +65,20 @@ Id like to add a reaction
 so that I can like or dislike another user's movie review.
 
 ### curve balls
-- If I liked/disliked a reaction, then the button/graphic should be filled. 
-- If I change an existing reaction, then I will need to PUT otherwise POST.
+- If you already voted
+  - either the like/displike the button/graphic should be filled. 
+  - YOU CANT CHANGE YOUR OWN EXISTING REACTION.  If either  like/dislike is true then disable clicks.  
 
 ### restrictions
 
-- Filter out my review from the typical list of reviews.
-- if I am the user who wrote the review, then I can not add a reaction. 
+- DONE:  Filter out my review from the typical list of reviews.
+- if I am the user who wrote the review, then I can not add a reaction to that review.
 
 ### Tasks
 
 
-
+- On the list of regular reviews, make reactions happen. 
+  - send reaction POST to api
+  -
 
 

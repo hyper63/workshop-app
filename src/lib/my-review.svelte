@@ -5,6 +5,7 @@
     export let movieId = null
     export let review = {}
     export let loggedInUser = null
+    export let handleSaveReaction
 
    console.log({loggedInUser, review})
 </script>
@@ -14,7 +15,7 @@
         <div class="bg-lightblue">
             <h3 class="text-gray-900 text-sm font-medium truncate">My Review</h3>
             <ul>
-                <ReviewItem {review} bgColor="lightblue"/>
+                <ReviewItem {handleSaveReaction} {loggedInUser} {review} bgColor="lightblue" enableReaction={false}/>
             </ul>
             <section class="pl-2 pb-4">
                 <div class="flex flex-col pr-6 items-center">          
