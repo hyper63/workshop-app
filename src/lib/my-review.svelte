@@ -1,11 +1,12 @@
 <script>
     import {isEmpty, not, propOr} from 'ramda'
     import ReviewItem from '$lib/review-item.svelte'
-    import LinkBtn from '$lib/link-button.svelte'
+    import Button from '$lib/button.svelte'
     export let movieId = null
     export let review = {}
     export let loggedInUser = null
     export let handleSaveReaction
+    export let handleLoginAttempt
 </script>
 <div>
     <!-- // Review List Item (logged in and && review exists for currently logged in user) -->
@@ -35,7 +36,7 @@
         <section class="pl-2 pb-4">
             <div class="flex flex-col pr-6 items-center">          
             <div class="mt-4">
-                <LinkBtn href="/login">Login</LinkBtn>
+                <Button on:click={handleLoginAttempt}>Login</Button>
             </div>
             </div>
         </section>

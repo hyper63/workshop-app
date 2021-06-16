@@ -64,6 +64,19 @@
      }
   }
 
+  async function handleLoginAttempt() {
+      console.log('handleLoginAttempt wired up.')
+     const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=${pagesize}`
+     const movieRes = await fetch(url)
+     if (movieRes.ok) {
+       //let nextPageReviews = (await movieRes.json()).reviews
+       let nextPageReviews = reject(r => r.author === $loggedInUser, (await movieRes.json()).reviews)
+
+       otherReviews = [...otherReviews, ...nextPageReviews]
+       showNextPage = length(nextPageReviews) < pagesize ? false : true
+     }
+
+  }
 
   async function handleSaveReaction({detail}) {
       
@@ -96,7 +109,7 @@
     <MovieHeader {movie}/>
     <!-- // {#if loggedInUser && not(isEmpty(review)) && loggedInUser === propOr( null,'author',review)} -->
 
-    <MyReview {handleSaveReaction} loggedInUser={$loggedInUser} review={myReview} movieId={movie.id}/>
+    <MyReview {handleLoginAttempt} {handleSaveReaction} loggedInUser={$loggedInUser} review={myReview} movieId={movie.id}/>
     <ul>
       {#each otherReviews as review, i (review)}
         <ReviewItem {handleSaveReaction} enableReaction={true} loggedInUser={$loggedInUser} {review} itemId={i}/>
