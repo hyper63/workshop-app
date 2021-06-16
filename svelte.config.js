@@ -1,8 +1,9 @@
-import preprocess from "svelte-preprocess";
+import sveltePreprocess from "svelte-preprocess"
+import node from '@sveltejs/adapter-node'
 /** @type {import('@sveltejs/kit').Config} */
-const config = {
+export default {
 	preprocess: [
-		preprocess({
+		sveltePreprocess({
 			defaults: {
 				style: "postcss"
 			},
@@ -10,10 +11,18 @@ const config = {
 		}),
 	],
 	kit: {
+		// By default, `npm run build` will create a standard Node app.
+		// You can create optimized builds for different platforms by
+		// specifying a different adapter
+		adapter: node(),
+	
 		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte'
-	}
-};
-
-
-export default config;
+		target: '#svelte',
+	
+		vite: {
+		  ssr: {
+			noExternal: '' // (pkg.dependencies || {}) 
+		  }
+		}
+	  }
+}

@@ -66,16 +66,11 @@
 
   async function handleLoginAttempt() {
       console.log('handleLoginAttempt wired up.')
-     const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=${pagesize}`
-     const movieRes = await fetch(url)
-     if (movieRes.ok) {
-       //let nextPageReviews = (await movieRes.json()).reviews
-       let nextPageReviews = reject(r => r.author === $loggedInUser, (await movieRes.json()).reviews)
+     const url = `/api/auth/login.json`
+     const loginResponse = await fetch(url)
+     
 
-       otherReviews = [...otherReviews, ...nextPageReviews]
-       showNextPage = length(nextPageReviews) < pagesize ? false : true
-     }
-
+     console.log('handleLoginAttempt loginResponse: ', loginResponse)
   }
 
   async function handleSaveReaction({detail}) {
