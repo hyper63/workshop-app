@@ -1,3 +1,13 @@
+<script context="module">
+  export async function load({session}) {
+    return {
+      props: {
+        session
+      }
+    }
+  }
+</script>
+
 <script>
   import Header from '$lib/header.svelte'  
   import Button from '$lib/button.svelte'
@@ -14,6 +24,10 @@
   let error = false
   let errorStatusMsg = ''
   let searchResultMovies = []
+
+  export let session
+  let userName = propOr(null, 'username', session)
+  console.log('home page search index.svelte session', session)
   
   async function handleSubmit(e) {
       searchResultMovies = []
@@ -48,7 +62,7 @@
 <svelte:head>
   <title>hyper movie reviews and reactions</title>
 </svelte:head>
-<Header title="hyper movies"/>
+<Header title="hyper movies" {userName}/>
   <main class="mt-4 ml-2 md:mt-20 md:ml-24 md:mr-4">
     <form on:submit|preventDefault={handleSubmit}>
       <section class="pl-2">

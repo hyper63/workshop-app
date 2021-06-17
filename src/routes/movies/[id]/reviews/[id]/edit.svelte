@@ -1,11 +1,11 @@
 <script context="module">
-  export async function load({ page, fetch }) {
+  export async function load({ page, fetch, session }) {
     const url = `/api/reviews/${page.params.id}.json`
     const res = await fetch(url)
     if (res.ok) {
       return {
         props: {
-        
+          session,
           review: await res.json()
         }
       }
@@ -16,10 +16,17 @@
 <script>
   import Header from '$lib/header.svelte'
   import ReviewForm from '$lib/review-form.svelte'
-  import { goto } from '$app/navigation'
+  import { goto} from '$app/navigation'
+  import {propOr} from 'ramda'
   export let review = {}
+  export let session
+
+  let userName = propOr(null, 'username', session)
+  console.log('edit movie userName', userName)
+
   let submitStatus = null 
   let error = false
+
 
   async function handleSubmit({detail}) {
     const res = await fetch(`/api/reviews/${review.id}.json`, {

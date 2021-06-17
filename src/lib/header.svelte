@@ -1,8 +1,9 @@
 <script>
     //import { goto } from '$app/navigation'
-    //import Button from '$lib/button.svelte'
-    import NavButton from '$lib/nav-button.svelte'
+    import LinkButton from '$lib/link-button.svelte'
+    //import NavButton from '$lib/nav-button.svelte'
     let mobileMenu = false
+    export let userName 
     
     function mobile() {
       mobileMenu = !mobileMenu
@@ -47,8 +48,13 @@
          get started
         <a class="font-space uppercase text-sm" href="/get-started">get started</a>
         -->
-       
-        <a class="font-space uppercase text-sm" href="/login"><NavButton>Login</NavButton></a>
+        {#if userName} 
+        Logged in as: {userName}
+        <LinkButton href="/api/auth/logout">Logout</LinkButton>
+        {:else}
+        <LinkButton href="/api/auth/login">Login to Admin</LinkButton>
+        {/if}
+        <!-- <a class="font-space uppercase text-sm" href="/login"><NavButton>Login</NavButton></a> -->
         
       </nav>
     
@@ -67,7 +73,13 @@
         <hr />
         <Button href="https://docs.hyper.io">API DOCS</Button>
         -->
-        <NavButton><a href="/login">Login</a></NavButton>
+        <!-- <NavButton><a href="/login">Login</a></NavButton> -->
+        {#if userName} 
+        Logged in as: {userName}
+        <LinkButton href="/api/auth/logout">Logout</LinkButton>
+        {:else}
+        <LinkButton href="/api/auth/login">Login to Admin</LinkButton>
+        {/if}
       </div>
     </div>
     {/if}

@@ -1,7 +1,7 @@
 //import { token } from '$lib/config.js'
 import fetch from 'node-fetch'
 //const url = 'https://moviereview-api.hyper.io/api/movies'
-const url = 'https://3000-salmon-antlion-fwwak7ju.ws-us09.gitpod.io/api/reviews'
+const url = 'https://3000-salmon-antlion-fwwak7ju.ws-us08.gitpod.io/api/reviews'
 
 export async function post({body}) {
   //const bearer = token()

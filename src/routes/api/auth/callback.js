@@ -28,16 +28,19 @@ export async function get(req) {
     }
   }).then(r => r.json())
 
-  if (contains(user.login, ['twilson63', 'tripott'])) {
+  // if (contains(user.login, ['twilson63', 'tripott'])) {
     req.locals.token = result.access_token
     req.locals.username = user.login
-  }
+  // }
+
+  console.log('workshop-app src/routes/api/auth/callback.js')
+  console.log({access_token: result.access_token, login: user.login})
 
   // Need to setup session
   return {
     status: 302,
     headers: {
-      location: '/admin'
+      location: '/'
     },
     body: 'redirect'
   }

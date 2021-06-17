@@ -1,3 +1,15 @@
 import { writable } from 'svelte/store';
 
-export const loggedInUser = writable(null);
+function createLoggedInUser() {
+    const {subscribe, set, update} = writable(null)
+
+    return {
+        subscribe,
+        setUser: () => update(user => user),
+        reset: () => set(null)
+    }
+
+}
+
+
+export const loggedInUser = createLoggedInUser();

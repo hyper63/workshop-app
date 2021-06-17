@@ -5,9 +5,9 @@
     export let itemId = 1
     export let enableReaction = false
     let {id, movieId, rating, summary, author, counts, reactions} = review
-    export let loggedInUser = null
+    export let userName 
     export let handleSaveReaction
-    const currentUsersReview = find(propEq('user', loggedInUser), reactions)
+    const currentUsersReview = find(propEq('user', userName), reactions)
     const currentUsersReaction = propOr(null, 'reaction', currentUsersReview)
 
     rating = rating || 'N/A'
@@ -31,5 +31,5 @@
     </div>
   </div>
 
-  <ThumbsToggle  {enableReaction} on:saveReaction={handleSaveReaction} movieId={movieId} reviewId={id} likesCount={counts.like} dislikesCount={counts.dislike} {currentUsersReaction} {loggedInUser}/>
+  <ThumbsToggle  {enableReaction} on:saveReaction={handleSaveReaction} movieId={movieId} reviewId={id} likesCount={counts.like} dislikesCount={counts.dislike} {currentUsersReaction} {userName}/>
 </li>

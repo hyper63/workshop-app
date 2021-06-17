@@ -8,14 +8,17 @@
   export let likesCount = null
   export let dislikesCount = null
   export let currentUsersReaction = null
-  export let loggedInUser = null
+  export let userName = null
   export let enableReaction = false
 
   function saveLike () {
+   
     if (isNil(currentUsersReaction) && enableReaction) {
       currentUsersReaction = 'like'
       likesCount +=1 
-      dispatch('saveReaction', {"id": `reaction-${loggedInUser}-review-${reviewId}-${movieId}`, reviewId, reaction: 'like', "user": loggedInUser})
+      console.log('thumbs-toggle.svelte saveLike() loggedInUser:', userName)
+      console.log('thumbs-toggle.svelte saveLike() dispatch :', 'saveReaction', {"id": `reaction-${userName}-review-${reviewId}-${movieId}`, reviewId, reaction: 'like', "user": userName})
+      dispatch('saveReaction', {"id": `reaction-${userName}-review-${reviewId}-${movieId}`, reviewId, reaction: 'like', "user": userName})
     }
   }
 
@@ -23,7 +26,7 @@
     if (isNil(currentUsersReaction) && enableReaction) {
       currentUsersReaction = 'dislike'
       dislikesCount +=1 
-      dispatch('saveReaction', {"id": `reaction-${loggedInUser}-review-${reviewId}-${movieId}`, reviewId, reaction: 'dislike', "user": loggedInUser})
+      dispatch('saveReaction', {"id": `reaction-${userName}-review-${reviewId}-${movieId}`, reviewId, reaction: 'dislike', "user": userName})
     }
   }
 

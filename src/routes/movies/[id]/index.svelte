@@ -1,9 +1,8 @@
-
 <script context="module">
   import { propOr, length, reject, find, take } from 'ramda';
   let movieId = null
   
-  export async function load({ page, fetch }) {
+  export async function load({ page, fetch, session }) {
      movieId = page.params.id
      const startindex = 0
      const pagesize = 5
@@ -22,15 +21,18 @@
           reviews,
           startindex,
           pagesize,
-          showNextPage
+          showNextPage,
+          session
+
         }
       }
      }
   }
 </script>
+
+
 <script>
-  
-  import {loggedInUser} from '$lib/stores'
+
   import Header from '$lib/header.svelte'  
   import MovieHeader from '$lib/movie-header.svelte'
   import ReviewItem from '$lib/review-item.svelte'
@@ -42,12 +44,15 @@
   export let pagesize
   export let showNextPage = true
   export let reviews
+  export let session
+  let userName = propOr(null, 'username', session)
+  console.log('movie page userName', userName)
   
-  const myReview = find(r => r.author === $loggedInUser, reviews) || {}
+  const myReview = find(r => r.author === userName, reviews) || {}
   reviews = take(5, reviews)
 
   let title = `${movie.title} - ${movie.year}`
-  let otherReviews = reject(r => r.author === $loggedInUser, reviews)
+  let otherReviews = reject(r => r.author === userName, reviews)
   let saveReactionStatus
   let saveReactionError
 
@@ -57,20 +62,11 @@
      const movieRes = await fetch(url)
      if (movieRes.ok) {
        //let nextPageReviews = (await movieRes.json()).reviews
-       let nextPageReviews = reject(r => r.author === $loggedInUser, (await movieRes.json()).reviews)
+       let nextPageReviews = reject(r => r.author === userName, (await movieRes.json()).reviews)
 
        otherReviews = [...otherReviews, ...nextPageReviews]
        showNextPage = length(nextPageReviews) < pagesize ? false : true
      }
-  }
-
-  async function handleLoginAttempt() {
-      console.log('handleLoginAttempt wired up.')
-     const url = `/api/auth/login.json`
-     const loginResponse = await fetch(url)
-     
-
-     console.log('handleLoginAttempt loginResponse: ', loginResponse)
   }
 
   async function handleSaveReaction({detail}) {
@@ -98,16 +94,16 @@
 
 </script>
 
-<Header {title}/>
+<Header {title} {userName}/>
 
 <main class="overflow-x-hidden">
-    <MovieHeader {movie}/>
+    <MovieHeader {movie} {userName}/>
     <!-- // {#if loggedInUser && not(isEmpty(review)) && loggedInUser === propOr( null,'author',review)} -->
 
-    <MyReview {handleLoginAttempt} {handleSaveReaction} loggedInUser={$loggedInUser} review={myReview} movieId={movie.id}/>
+    <MyReview {handleSaveReaction} {userName} review={myReview} movieId={movie.id}/>
     <ul>
       {#each otherReviews as review, i (review)}
-        <ReviewItem {handleSaveReaction} enableReaction={true} loggedInUser={$loggedInUser} {review} itemId={i}/>
+        <ReviewItem {handleSaveReaction} enableReaction={true} {userName} {review} itemId={i}/>
       {/each}
       
     </ul>

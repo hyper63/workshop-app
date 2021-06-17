@@ -2,6 +2,7 @@
     import Stars from '$lib/stars-rating.svelte'
     import { equals, cond, always, T, propOr} from 'ramda'
     export let movie = {}
+    export let userName 
     let {actors, genre, avgRating, summary, bannerURL } = movie
 
     avgRating = avgRating || 'N/A'

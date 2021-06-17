@@ -1,29 +1,34 @@
 <script context="module">
-  export async function load({ page }) {
+  export async function load({ page, session }) {
     const movieId = page.params.id
       return {
         props: {
-          movieId
+          movieId,
+          session
         }
       }
   }
 </script>
 <script>
   import {loggedInUser} from '$lib/stores.js'
-  import { toLower} from 'ramda'
+  import { toLower, propOr} from 'ramda'
   import Header from '$lib/header.svelte'
   import ReviewForm from '$lib/review-form.svelte'
   import { goto } from '$app/navigation'
   let submitStatus = null 
   let error = false
   export let movieId = null
+  export let session
+
+  let userName = propOr(null, 'username', session)
+  console.log('add movie userName', userName)
   
   let review = {
-      id: `review-${toLower($loggedInUser)}-${movieId}`,
+      id: `review-${toLower(userName)}-${movieId}`,
       movieId,
       rating: 1,
       summary: "",
-      author: $loggedInUser,
+      author: userName,
       type: "review"
     }
 

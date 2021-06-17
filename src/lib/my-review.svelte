@@ -4,17 +4,19 @@
     import LinkButton from '$lib/link-button.svelte'
     export let movieId = null
     export let review = {}
-    export let loggedInUser = null
+    export let userName
     export let handleSaveReaction
     //export let handleLoginAttempt
+
+    console.log('my-review.svelte userName:', userName)
 </script>
 <div>
     <!-- // Review List Item (logged in and && review exists for currently logged in user) -->
-    {#if loggedInUser && not(isEmpty(review)) && loggedInUser === propOr( null,'author',review)}
+    {#if userName && not(isEmpty(review)) && userName === propOr( null,'author',review)}
         <div class="bg-lightblue">
             <h3 class="text-gray-900 text-sm font-medium truncate">My Review</h3>
             <ul>
-                <ReviewItem {handleSaveReaction} {loggedInUser} {review} bgColor="lightblue" enableReaction={false}/>
+                <ReviewItem {handleSaveReaction} {userName} {review} bgColor="lightblue" enableReaction={false}/>
             </ul>
             <section class="pl-2 pb-4">
                 <div class="flex flex-col pr-6 items-center">          
@@ -24,7 +26,7 @@
                 </div>
             </section>
         </div>  
-    {:else if loggedInUser && isEmpty(review)}
+    {:else if userName && isEmpty(review)}
         <section class="pl-2 pb-4">
             <div class="flex flex-col pr-6 items-center">          
             <div class="mt-4">
