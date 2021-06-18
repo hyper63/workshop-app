@@ -57,6 +57,9 @@
   //console.log('AFTER MOVIE PAGE loginRedirectTo', $loginRedirectTo)
 
   let userName = propOr(null, 'username', session)
+
+  const enableReaction = userName ? true: false
+  
   const myReview = find(r => r.author === userName, reviews) || {}
   reviews = take(5, reviews)
 
@@ -112,7 +115,7 @@
     <MyReview {handleSaveReaction} {userName} review={myReview} movieId={movie.id} {pagePath}/>
     <ul>
       {#each otherReviews as review, i (review)}
-        <ReviewItem {handleSaveReaction} enableReaction={true} {userName} {review} itemId={i}/>
+        <ReviewItem {handleSaveReaction} {enableReaction} {userName} {review} itemId={i}/>
       {/each}
       
     </ul>

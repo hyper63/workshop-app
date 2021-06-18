@@ -1,6 +1,6 @@
 <script>
     import ThumbsToggle from '$lib/thumbs-toggle.svelte'
-    import { find, propEq, propOr } from 'ramda';
+    import { find, propEq, propOr, isNil } from 'ramda';
     export let review = {}
     export let itemId = 1
     export let enableReaction = false
@@ -15,9 +15,11 @@
     author = author || 'N/A'
     export let bgColor 
     bgColor = bgColor ? bgColor:  itemId % 2 === 0 ? "white" : 'whitesmoke'
-    
-    
 
+    console.log('review-item')
+    console.log('enableReaction', enableReaction)
+    console.log('isNil(currentUsersReaction)', isNil(currentUsersReaction))
+    console.log('isNil(currentUsersReaction) && enableReaction:', isNil(currentUsersReaction) && enableReaction)
 </script>
 
 <li class="col-span-1 bg-{bgColor}">
@@ -30,6 +32,6 @@
       <p class="mt-1 text-gray-500 text-sm">{summary}</p>
     </div>
   </div>
-
-  <ThumbsToggle  {enableReaction} on:saveReaction={handleSaveReaction} movieId={movieId} reviewId={id} likesCount={counts.like} dislikesCount={counts.dislike} {currentUsersReaction} {userName}/>
+  
+  <ThumbsToggle  {enableReaction} {currentUsersReaction} {userName} on:saveReaction={handleSaveReaction} movieId={movieId} reviewId={id} likesCount={counts.like} dislikesCount={counts.dislike} />
 </li>

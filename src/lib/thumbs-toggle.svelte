@@ -10,9 +10,8 @@
   export let currentUsersReaction = null
   export let userName = null
   export let enableReaction = false
-
+  
   function saveLike () {
-   
     if (isNil(currentUsersReaction) && enableReaction) {
       currentUsersReaction = 'like'
       likesCount +=1 
