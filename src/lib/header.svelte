@@ -5,6 +5,12 @@
     //import NavButton from '$lib/nav-button.svelte'
     let mobileMenu = false
     export let userName 
+    export let pagePath
+
+    
+    pagePath = pagePath || '/'
+    
+
     function mobile() {
       mobileMenu = !mobileMenu
     }
@@ -42,11 +48,11 @@
        
         {#if userName} 
         Logged in as: {userName}
-        <LinkButton href="/logout">Logout</LinkButton>
+        <LinkButton href="/logout?redirectTo={pagePath}">Logout</LinkButton>
         <!-- <a class="font-space uppercase text-sm" href="/logout">Logout</a> -->
         {:else}
         <!-- <a class="font-space uppercase text-sm" href="/login">Login</a> -->
-        <LinkButton href="/login">Login</LinkButton>
+        <LinkButton href="/login?redirectTo={pagePath}">Login</LinkButton>
         {/if}
         <!-- <a class="font-space uppercase text-sm" href="/login"><NavButton>Login</NavButton></a> -->
         
@@ -61,10 +67,10 @@
         {#if userName} 
         Logged in as: {userName}
         <!-- <a class="font-space uppercase text-sm" href="/logout">Logout</a> -->
-        <LinkButton href="/logout">Logout</LinkButton>
+        <LinkButton href="/logout?redirectTo={pagePath}">Logout</LinkButton>
         {:else}
         <!-- <a class="font-space uppercase text-sm" href="/login">Login</a> -->
-        <LinkButton href="/login">Login</LinkButton>
+        <LinkButton href="/login?redirectTo={pagePath}">Login</LinkButton>
         {/if}
       </div>
     </div>

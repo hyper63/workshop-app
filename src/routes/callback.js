@@ -41,7 +41,7 @@ export async function get(req) {
 
   // Need to setup session
 
-  console.log('CALLBACK', redirectTo)
+  console.log('LOGIN CALLBACK redirectTo', redirectTo)
   return {
     status: 302,
     headers: {

@@ -32,8 +32,6 @@
   export let session
   let userName = propOr(null, 'username', session)
 
-  //console.log('vvvvhome page loginRedirectTo', $loginRedirectTo)
-  //console.log('home page search index.svelte session', session)
   
   async function handleSubmit(e) {
       searchResultMovies = []
@@ -68,7 +66,7 @@
 <svelte:head>
   <title>hyper movie reviews and reactions</title>
 </svelte:head>
-<Header title="hyper movies" {userName}/>
+<Header title="hyper movies" {userName} pagePath="/"/>
   <main class="mt-4 ml-2 md:mt-20 md:ml-24 md:mr-4">
     <form on:submit|preventDefault={handleSubmit}>
       <section class="pl-2">

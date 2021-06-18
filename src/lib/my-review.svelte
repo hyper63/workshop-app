@@ -8,9 +8,7 @@
     export let review = {}
     export let userName
     export let handleSaveReaction
-   
-
-    console.log('my-review.svelte userName:', userName)
+    export let pagePath
 </script>
 <div>
     <!-- // Review List Item (logged in and && review exists for currently logged in user) -->
@@ -41,7 +39,7 @@
             <div class="flex flex-col pr-6 items-center">          
             <div class="mt-4">
                 <!-- <a class="font-space uppercase text-sm" href="/login">Login</a> -->
-                <LinkButton href="/login">Login to Add Your Review</LinkButton>
+                <LinkButton href="/login?redirectTo={pagePath}">Login to Add Your Review</LinkButton>
             </div>
             </div>
         </section>

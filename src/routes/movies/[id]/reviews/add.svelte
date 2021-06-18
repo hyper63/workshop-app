@@ -21,7 +21,7 @@
   export let session
 
   let userName = propOr(null, 'username', session)
-  console.log('add movie userName', userName)
+  //console.log('add movie userName', userName)
   
   let review = {
       id: `review-${toLower(userName)}-${movieId}`,

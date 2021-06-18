@@ -22,7 +22,7 @@
   export let session
 
   let userName = propOr(null, 'username', session)
-  console.log('edit movie userName', userName)
+  //console.log('edit movie userName', userName)
 
   let submitStatus = null 
   let error = false

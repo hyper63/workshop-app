@@ -4,7 +4,7 @@
   let movieId = null
   
   export async function load({ page, fetch, session }) {
-    console.log('movie page', {page})
+    //console.log('movie page', {page})
      movieId = page.params.id
      
      const startindex = 0
@@ -50,9 +50,11 @@
   export let session
   export let pagePath
 
-  loginRedirectTo.update(() => pagePath);
+  //console.log('BEFORE MOVIE PAGE loginRedirectTo', $loginRedirectTo)
 
-  //console.log('MOVIE PAGE loginRedirectTo', $loginRedirectTo)
+  loginRedirectTo.update(() => pagePath)
+
+  //console.log('AFTER MOVIE PAGE loginRedirectTo', $loginRedirectTo)
 
   let userName = propOr(null, 'username', session)
   const myReview = find(r => r.author === userName, reviews) || {}
@@ -101,13 +103,13 @@
 
 </script>
 
-<Header {title} {userName}/>
+<Header {title} {userName} {pagePath}/>
 
 <main class="overflow-x-hidden">
-    <MovieHeader {movie} {userName}/>
+    <MovieHeader {movie} {userName} />
     <!-- // {#if loggedInUser && not(isEmpty(review)) && loggedInUser === propOr( null,'author',review)} -->
 
-    <MyReview {handleSaveReaction} {userName} review={myReview} movieId={movie.id}/>
+    <MyReview {handleSaveReaction} {userName} review={myReview} movieId={movie.id} {pagePath}/>
     <ul>
       {#each otherReviews as review, i (review)}
         <ReviewItem {handleSaveReaction} enableReaction={true} {userName} {review} itemId={i}/>
