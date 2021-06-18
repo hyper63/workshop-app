@@ -1,9 +1,12 @@
 <script context="module">
+  
   import { propOr, length, reject, find, take } from 'ramda';
   let movieId = null
   
   export async function load({ page, fetch, session }) {
+    console.log('movie page', {page})
      movieId = page.params.id
+     
      const startindex = 0
      const pagesize = 5
      //const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=${pagesize}`
@@ -22,8 +25,8 @@
           startindex,
           pagesize,
           showNextPage,
-          session
-
+          session,
+          pagePath : page.path
         }
       }
      }
@@ -32,7 +35,7 @@
 
 
 <script>
-
+  import { loginRedirectTo } from '$lib/stores';
   import Header from '$lib/header.svelte'  
   import MovieHeader from '$lib/movie-header.svelte'
   import ReviewItem from '$lib/review-item.svelte'
@@ -45,9 +48,13 @@
   export let showNextPage = true
   export let reviews
   export let session
+  export let pagePath
+
+  loginRedirectTo.update(() => pagePath);
+
+  //console.log('MOVIE PAGE loginRedirectTo', $loginRedirectTo)
+
   let userName = propOr(null, 'username', session)
-  console.log('movie page userName', userName)
-  
   const myReview = find(r => r.author === userName, reviews) || {}
   reviews = take(5, reviews)
 

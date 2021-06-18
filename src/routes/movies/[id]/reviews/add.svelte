@@ -10,7 +10,7 @@
   }
 </script>
 <script>
-  import {loggedInUser} from '$lib/stores.js'
+  
   import { toLower, propOr} from 'ramda'
   import Header from '$lib/header.svelte'
   import ReviewForm from '$lib/review-form.svelte'
@@ -52,7 +52,7 @@
 </script>
 
 <main>
-  <Header />
+  <Header {userName}/>
   {#if submitStatus}
     <div class="border rounded-lg border-{error ? 'red' : 'green'} p-4 m-16 relative">
       <button class="absolute top-2 right-0" on:click={() => submitStatus = null}>

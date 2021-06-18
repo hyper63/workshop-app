@@ -1,4 +1,6 @@
 <script context="module">
+  
+
   export async function load({session}) {
     return {
       props: {
@@ -9,6 +11,8 @@
 </script>
 
 <script>
+  import { loginRedirectTo } from '$lib/stores';
+  loginRedirectTo.update(() => '/');
   import Header from '$lib/header.svelte'  
   import Button from '$lib/button.svelte'
   import Input from '$lib/input.svelte'
@@ -27,7 +31,9 @@
 
   export let session
   let userName = propOr(null, 'username', session)
-  console.log('home page search index.svelte session', session)
+
+  //console.log('vvvvhome page loginRedirectTo', $loginRedirectTo)
+  //console.log('home page search index.svelte session', session)
   
   async function handleSubmit(e) {
       searchResultMovies = []

@@ -1,15 +1,18 @@
-import fetch from 'node-fetch'
-import { contains } from 'ramda'
 
+import { get as getter } from 'svelte/store';
+import {loginRedirectTo} from '$lib/stores'
+
+import fetch from 'node-fetch'
 const clientId = import.meta.env.VITE_CLIENT_ID
 const secret = import.meta.env.VITE_CLIENT_SECRET
 const tokenUrl = 'https://github.com/login/oauth/access_token'
 const userUrl = 'https://api.github.com/user'
 
 export async function get(req) {
+  const redirectTo = getter(loginRedirectTo);
   const code = req.query.get('code')
   const state = req.query.get('state')
-
+  
   // need to get JWT with fetch
   const result = await fetch(tokenUrl, {
     method: 'POST',
@@ -33,14 +36,16 @@ export async function get(req) {
     req.locals.username = user.login
   // }
 
-  console.log('workshop-app src/routes/api/auth/callback.js')
-  console.log({access_token: result.access_token, login: user.login})
+  // console.log('workshop-app src/routes/api/auth/callback.js')
+  // console.log({access_token: result.access_token, login: user.login})
 
   // Need to setup session
+
+  console.log('CALLBACK', redirectTo)
   return {
     status: 302,
     headers: {
-      location: '/'
+      location: redirectTo
     },
     body: 'redirect'
   }

@@ -15,6 +15,7 @@ export default {
 		// You can create optimized builds for different platforms by
 		// specifying a different adapter
 		adapter: node(),
+		floc: true,
 	
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',

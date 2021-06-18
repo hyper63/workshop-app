@@ -50,7 +50,7 @@
   
 
 <main>
-  <Header />
+  <Header {userName}/>
   {#if submitStatus}
     <div class="border rounded-lg border-{error ? 'red' : 'green'} p-4 m-16 relative">
       <button class="absolute top-2 right-0" on:click={() => submitStatus = null}>

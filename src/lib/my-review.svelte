@@ -1,12 +1,14 @@
 <script>
+    
     import {isEmpty, not, propOr} from 'ramda'
     import ReviewItem from '$lib/review-item.svelte'
     import LinkButton from '$lib/link-button.svelte'
+    import NavButton from '$lib/nav-button.svelte'
     export let movieId = null
     export let review = {}
     export let userName
     export let handleSaveReaction
-    //export let handleLoginAttempt
+   
 
     console.log('my-review.svelte userName:', userName)
 </script>
@@ -38,7 +40,8 @@
         <section class="pl-2 pb-4">
             <div class="flex flex-col pr-6 items-center">          
             <div class="mt-4">
-                <LinkButton href="/api/auth/login">Login to Add Your Review</LinkButton>
+                <!-- <a class="font-space uppercase text-sm" href="/login">Login</a> -->
+                <LinkButton href="/login">Login to Add Your Review</LinkButton>
             </div>
             </div>
         </section>

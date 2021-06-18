@@ -1,10 +1,10 @@
 <script>
     //import { goto } from '$app/navigation'
+    
     import LinkButton from '$lib/link-button.svelte'
     //import NavButton from '$lib/nav-button.svelte'
     let mobileMenu = false
     export let userName 
-    
     function mobile() {
       mobileMenu = !mobileMenu
     }
@@ -14,6 +14,8 @@
     }
 
     export let title = "hyper movies"
+
+    //console.log('header ', {pageUrlPath})
 </script>
     <header class="flex justify-between mt-4 ml-4 md:mt-20 md:ml-24 md:mr-4">
       <a href="/">
@@ -37,22 +39,14 @@
         </button>
       </section>
       <nav class="hidden md:w-1/2 md:block  items-center space-x-4">
-        <!--
-        <a class="font-space uppercase text-sm" href="/login">login</a>
-        
-        <a class="font-space uppercase text-sm" href="/faq">faq</a>
-        
-        <a class="font-space uppercase text-sm" href="/company">company</a>
-        
-        <a class="font-space uppercase text-sm" href="https://blog.hyper.io">blog</a>
-         get started
-        <a class="font-space uppercase text-sm" href="/get-started">get started</a>
-        -->
+       
         {#if userName} 
         Logged in as: {userName}
-        <LinkButton href="/api/auth/logout">Logout</LinkButton>
+        <LinkButton href="/logout">Logout</LinkButton>
+        <!-- <a class="font-space uppercase text-sm" href="/logout">Logout</a> -->
         {:else}
-        <LinkButton href="/api/auth/login">Login to Admin</LinkButton>
+        <!-- <a class="font-space uppercase text-sm" href="/login">Login</a> -->
+        <LinkButton href="/login">Login</LinkButton>
         {/if}
         <!-- <a class="font-space uppercase text-sm" href="/login"><NavButton>Login</NavButton></a> -->
         
@@ -62,23 +56,15 @@
     {#if mobileMenu}
     <div class="sm:hidden mx-4" id="mobile-menu">
       <div class="pt-2 pb-3 space-y-1">
-           <!--
-        <a href="/" class="{isCurrentPage('/')}" aria-current="page">Home</a>
-        <a href="/product" class="{isCurrentPage('/product')}">Product</a>
-        <a href="/pricing" class="{isCurrentPage('/pricing')}">Pricing</a>
-        <a href="/faq" class="{isCurrentPage('/faq')}">FAQ</a>
-        <a href="/company" class="{isCurrentPage('/company')}">Company</a>
-        <a href="https://blog.hyper.io" class="link">Blog</a>
-        <a href="/get-started" class="{isCurrentPage('/get-started')}">Get Started</a> 
-        <hr />
-        <Button href="https://docs.hyper.io">API DOCS</Button>
-        -->
+          
         <!-- <NavButton><a href="/login">Login</a></NavButton> -->
         {#if userName} 
         Logged in as: {userName}
-        <LinkButton href="/api/auth/logout">Logout</LinkButton>
+        <!-- <a class="font-space uppercase text-sm" href="/logout">Logout</a> -->
+        <LinkButton href="/logout">Logout</LinkButton>
         {:else}
-        <LinkButton href="/api/auth/login">Login to Admin</LinkButton>
+        <!-- <a class="font-space uppercase text-sm" href="/login">Login</a> -->
+        <LinkButton href="/login">Login</LinkButton>
         {/if}
       </div>
     </div>
