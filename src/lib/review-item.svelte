@@ -1,25 +1,32 @@
 <script>
     import ThumbsToggle from '$lib/thumbs-toggle.svelte'
-    import { find, propEq, propOr, isNil } from 'ramda';
+    import { find, propEq, propOr, isNil, not } from 'ramda';
     export let review = {}
     export let itemId = 1
-    export let enableReaction = false
+    //export let enableReaction = false
     let {id, movieId, rating, summary, author, counts, reactions} = review
-    export let userName 
+    export let userName = null
     export let handleSaveReaction
-    const currentUsersReview = find(propEq('user', userName), reactions)
-    const currentUsersReaction = propOr(null, 'reaction', currentUsersReview)
+    const currentUsersReviewReaction = find(propEq('user', userName), reactions)
+    const currentUsersReaction = propOr(null, 'reaction', currentUsersReviewReaction)
 
+    // let the current logged in user click thumbs up/down the user has not reacted to the current review
+    //const enableReaction = not(isNil(userName)) && isNil(currentUsersReaction)
+
+  
+    export let enableReaction = userName && (author !== userName) && isNil(currentUsersReaction)
     rating = rating || 'N/A'
     summary = summary || ''
     author = author || 'N/A'
     export let bgColor 
     bgColor = bgColor ? bgColor:  itemId % 2 === 0 ? "white" : 'whitesmoke'
 
-    console.log('review-item')
-    console.log('enableReaction', enableReaction)
-    console.log('isNil(currentUsersReaction)', isNil(currentUsersReaction))
-    console.log('isNil(currentUsersReaction) && enableReaction:', isNil(currentUsersReaction) && enableReaction)
+    console.log('review-item: ', review.movieId, 'review id: ', review.id, 'author', author, 'currentUsersReviewReaction', currentUsersReviewReaction)
+   console.log('enableReaction', enableReaction)
+   console.log('review', review)
+   console.log('currentUsersReviewReaction', currentUsersReviewReaction)
+   // console.log('isNil(currentUsersReaction)', isNil(currentUsersReaction))
+    //console.log('isNil(currentUsersReaction) && enableReaction:', isNil(currentUsersReaction) && enableReaction)
 </script>
 
 <li class="col-span-1 bg-{bgColor}">
