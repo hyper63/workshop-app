@@ -21,12 +21,9 @@
     export let bgColor 
     bgColor = bgColor ? bgColor:  itemId % 2 === 0 ? "white" : 'whitesmoke'
 
-    console.log('review-item: ', review.movieId, 'review id: ', review.id, 'author', author, 'currentUsersReviewReaction', currentUsersReviewReaction)
-   console.log('enableReaction', enableReaction)
-   console.log('review', review)
-   console.log('currentUsersReviewReaction', currentUsersReviewReaction)
-   // console.log('isNil(currentUsersReaction)', isNil(currentUsersReaction))
-    //console.log('isNil(currentUsersReaction) && enableReaction:', isNil(currentUsersReaction) && enableReaction)
+  //   console.log('review-item: ', review.movieId, 'review id: ', review.id, 'author', author, 'currentUsersReviewReaction', currentUsersReviewReaction)
+  //  console.log('enableReaction', enableReaction)
+
 </script>
 
 <li class="col-span-1 bg-{bgColor}">

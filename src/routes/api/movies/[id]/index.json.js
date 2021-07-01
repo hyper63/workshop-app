@@ -2,7 +2,7 @@
 import fetch from 'node-fetch'
 import {propOr} from 'ramda'
 //const url = 'https://moviereview-api.hyper.io/api/movies'
-const moviesURL = 'https://3000-salmon-antlion-fwwak7ju.ws-us08.gitpod.io/api/movies'
+const moviesURL = 'https://3000-salmon-antlion-fwwak7ju.ws-us10.gitpod.io/api/movies'
 
 export async function get(req) {
   const {params} = req
