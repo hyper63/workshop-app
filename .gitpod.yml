@@ -15,3 +15,9 @@ vscode:
   extensions:
     - svelte.svelte-vscode
     - bradlc.vscode-tailwindcss
+ports:
+  - port: 3000
+    visibility: public
+    onOpen: browser
+  - port: 24678
+    visibility: public
