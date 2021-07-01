@@ -21,8 +21,9 @@
   "dependencies": {
     "@tailwindcss/aspect-ratio": "^0.2.1",
     "cookie": "^0.4.1",
+    "dotenv": "^10.0.0",
+    "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.1",
     "ramda": "^0.27.1"
-    
   }
 }

@@ -3,11 +3,14 @@ import fetch from 'node-fetch'
 import {propOr} from 'ramda'
 //const url = 'https://moviereview-api.hyper.io/api/movies'
 const moviesURL = 'https://3000-salmon-antlion-fwwak7ju.ws-us10.gitpod.io/api/movies'
+import jwtInfo from '$lib/create-jwt'
 
 export async function get(req) {
   const {params} = req
   //const bearer = token()
   
+  console.log({jwtInfo})
+
   const movie = await fetch(`${moviesURL}/${params.id}`, {
     method: 'GET'
   }).then(r => r.json())
