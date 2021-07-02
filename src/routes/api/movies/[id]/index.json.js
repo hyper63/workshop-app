@@ -17,7 +17,7 @@ export async function get(req) {
   const user = req.query.get('user') || ''
   const scope = req.query.get('scope') || ''
   const token = createJWT({user, scope})
-  console.log('token:', token)
+  console.log({user, scope})
 
   const result = await fetch(`${moviesURL}/${params.id}`, {
     method: 'GET'

@@ -14,17 +14,12 @@
     let loadStatus = 'loading'
     let errMsg = ''
 
-     //console.log('session', session)
-     //const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=${pagesize}`
-     /*
-      const user = req.query.get('user') || ''
-      const scope = req.query.get('scope') || ''
-     */
-    const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=1000&user=${'tripott'}&scope=${'foo'}`
+    let userName = propOr(null, 'userName', session)
+
+    const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=1000&user=${userName}&scope=${'foo'}`
     const movieRes = await fetch(url)
     movie = await movieRes.json()
  
-  
 
     if (movie.ok) {    
       reviews = propOr([], 'reviews', movie)
@@ -52,7 +47,7 @@
           startindex,
           pagesize,
           showNextPage,
-          session,
+          userName,
           pagePath : page.path
         }
       }
@@ -75,7 +70,7 @@
   export let pagesize
   export let showNextPage = true
   export let reviews
-  export let session
+  export let userName
   export let pagePath
 
   //console.log('BEFORE MOVIE PAGE loginRedirectTo', $loginRedirectTo)
@@ -84,7 +79,7 @@
 
   //console.log('AFTER MOVIE PAGE loginRedirectTo', $loginRedirectTo)
 
-  let userName = propOr(null, 'username', session)
+ 
 
   //const enableReaction = userName ? true: false
   

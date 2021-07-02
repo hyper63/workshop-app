@@ -33,7 +33,7 @@
   let searchResultMovies = []
 
   export let session
-  let userName = propOr(null, 'username', session)
+  let userName = propOr(null, 'userName', session)
 
   
   async function handleSubmit(e) {

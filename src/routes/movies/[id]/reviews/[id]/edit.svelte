@@ -21,7 +21,7 @@
   export let review = {}
   export let session
 
-  let userName = propOr(null, 'username', session)
+  let userName = propOr(null, 'userName', session)
   //console.log('edit movie userName', userName)
 
   let submitStatus = null 

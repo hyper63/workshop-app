@@ -3,13 +3,13 @@ import { compose, head, last, split } from 'ramda'
 
 export async function handle ({ request, resolve }){
   const cookies = cookie.parse(request.headers.cookie || '{}');
-  request.locals.token = (cookies.data && cookies.data !== 'deleted') ? compose(last, split('|'))(cookies.data) : '';
-  request.locals.username = (cookies.data && cookies.data !== 'deleted') ? compose(head, split('|'))(cookies.data) : '';
+  request.locals.gitHubToken = (cookies.data && cookies.data !== 'deleted') ? compose(last, split('|'))(cookies.data) : '';
+  request.locals.userName = (cookies.data && cookies.data !== 'deleted') ? compose(head, split('|'))(cookies.data) : '';
 
   const response = await resolve(request)
 
-  if (request.locals.token !== '') {
-    response.headers['set-cookie'] = `data=${request.locals.username}|${request.locals.token}; Path=/; HttpOnly`;
+  if (request.locals.gitHubToken !== '') {
+    response.headers['set-cookie'] = `data=${request.locals.userName}|${request.locals.gitHubToken}; Path=/; HttpOnly`;
   }
 
   if (request.locals.logout) {
@@ -21,6 +21,6 @@ export async function handle ({ request, resolve }){
 
 export async function getSession(request) {
   return {
-    username: request.locals.username
+    userName: request.locals.userName
   }
 }

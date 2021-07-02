@@ -31,10 +31,12 @@ export async function get(req) {
     }
   }).then(r => r.json())
 
-  
-  req.locals.token = result.access_token
-  req.locals.username = user.login
+  console.log('***** APP callback.js GitHub user ', user)
+  req.locals.gitHubToken = result.access_token
+  req.locals.userName = user.login
+  req.locals.avatarUrl = user.avatar_url
 
+  
   // Need to setup session
   return {
     status: 302,

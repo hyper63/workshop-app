@@ -20,7 +20,7 @@
   export let movieId = null
   export let session
 
-  let userName = propOr(null, 'username', session)
+  let userName = propOr(null, 'userName', session)
   //console.log('add movie userName', userName)
   
   let review = {
