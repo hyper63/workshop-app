@@ -1,12 +1,14 @@
 //import { token } from '$lib/config.js'
 import fetch from 'node-fetch'
-
-//const url = 'https://moviereview-api.hyper.io/api/movies/_search'
-
-const url = 'https://3000-salmon-antlion-fwwak7ju.ws-us10.gitpod.io/api/movies/_search'
+import dotenv from 'dotenv'
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config()
+}
+const WORKSHOP_API = process.env['WORKSHOP_API']
+const moviesURL = `${WORKSHOP_API}/movies/_search`  
 
 export async function post({ body }) {
-    const result = await fetch(url, {
+    const result = await fetch(moviesURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

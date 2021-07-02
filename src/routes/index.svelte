@@ -1,4 +1,6 @@
 <script context="module">
+
+
   
 
   export async function load({session}) {
@@ -11,8 +13,9 @@
 </script>
 
 <script>
-  import { loginRedirectTo } from '$lib/stores';
-  loginRedirectTo.update(() => '/');
+
+  import { loginRedirectTo } from '$lib/stores'
+  loginRedirectTo.update(() => '/')
   import Header from '$lib/header.svelte'  
   import Button from '$lib/button.svelte'
   import Input from '$lib/input.svelte'

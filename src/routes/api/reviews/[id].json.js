@@ -1,10 +1,15 @@
 //import { token } from '$lib/config.js'
 import fetch from 'node-fetch'
-//const url = 'https://moviereview-api.hyper.io/api/reviews'
-const url = 'https://3000-salmon-antlion-fwwak7ju.ws-us10.gitpod.io/api/reviews'
+import dotenv from 'dotenv'
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config()
+}
+const WORKSHOP_API = process.env['WORKSHOP_API']
+const moviesURL = `${WORKSHOP_API}/reviews`
+
 export async function get({ params }) {
   //const bearer = token()
-  const review = await fetch(`${url}/${params.id}`, {
+  const review = await fetch(`${moviesURL}/${params.id}`, {
     method: 'GET'
     // ,
     // headers: {
@@ -20,7 +25,7 @@ export async function get({ params }) {
 
 export async function put({ params, body }) {
   //const bearer = token()
-  const result = await fetch(`${url}/${params.id}`, {
+  const result = await fetch(`${moviesURL}/${params.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'

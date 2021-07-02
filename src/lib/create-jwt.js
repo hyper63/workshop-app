@@ -1,15 +1,12 @@
-import dotenv from 'dotenv'
-if (process.env.NODE_ENV !== 'production') {
-  dotenv.config()
-}
+
 import { default as jwt } from 'jsonwebtoken'
 
-let SECRET = process.env['SECRET']
+function createJWT ({user, scope}) {
+  let SECRET = process.env['SECRET']
+  return jwt.sign({ sub: user, scope}, SECRET)
+}
 
-const token = jwt.sign({ sub: 'tripott', scope: 'foo' }, SECRET)
+
 //const token = jwt.sign({ sub: user, scope: session.get('scope') }, SECRET)
-export default {SECRET, token}
+export default createJWT
 
-
-// const result = await fetch(apiUrl, { headers: { authorization: `Bearer ${token}` } })
-//   .then(r => r.json())

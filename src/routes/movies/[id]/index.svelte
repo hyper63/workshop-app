@@ -4,22 +4,49 @@
   let movieId = null
   
   export async function load({ page, fetch, session }) {
-    //console.log('movie page', {page})
-     movieId = page.params.id
+    movieId = page.params.id
      
-     const startindex = 0
-     const pagesize = 5
+    const startindex = 0
+    const pagesize = 5
+    let movie = {}
+    let reviews = []
+    let showNextPage = true
+    let loadStatus = 'loading'
+    let errMsg = ''
+
+     //console.log('session', session)
      //const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=${pagesize}`
-     const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=1000`
-     const movieRes = await fetch(url)
+     /*
+      const user = req.query.get('user') || ''
+      const scope = req.query.get('scope') || ''
+     */
+    const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=1000&user=${'tripott'}&scope=${'foo'}`
+    const movieRes = await fetch(url)
+    movie = await movieRes.json()
+ 
+  
 
-     if (movieRes.ok) {
-      const movie = await movieRes.json()
-      const reviews = propOr([], 'reviews', movie)
-      const showNextPage = length(movie.reviews) < pagesize ? false : true
+    if (movie.ok) {    
+      reviews = propOr([], 'reviews', movie)
+      showNextPage = length(movie.reviews) < pagesize ? false : true
+      loadStatus = 'success'
 
-      return {
+    } else {
+      console.log('movie not ok', movie)
+      loadStatus = 'error'
+      if (movie.status === 500) {
+        errMsg = "An error occurred trying to retrieve that movie."
+      } else if (movie.status === 404) {
+        errMsg = "That's strange ?! We couldn't find that movie."
+      } else {
+        errMsg = 'Unknown Error'
+      }
+    }
+
+     return {
         props: {
+          loadStatus,
+          errMsg,
           movie,
           reviews,
           startindex,
@@ -29,7 +56,6 @@
           pagePath : page.path
         }
       }
-     }
   }
 </script>
 
@@ -41,7 +67,9 @@
   import ReviewItem from '$lib/review-item.svelte'
   import ButtonCircle from '$lib/button-circle.svelte'
   import MyReview from '$lib/my-review.svelte'
- 
+  import ErrorMsg from '$lib/error-msg.svelte'
+  export let loadStatus = 'loading'
+  export let errMsg = ''
   export let movie 
   export let startindex
   export let pagesize
@@ -105,10 +133,16 @@
 
 
 </script>
-
-<Header {title} {userName} {pagePath}/>
-
 <main class="overflow-x-hidden">
+{#if loadStatus === 'loading'}
+  <Header title="Loading" {userName} {pagePath}/> 
+{:else if loadStatus==='error'}
+  <Header title="Error" {userName} {pagePath}/> 
+  <ErrorMsg {errMsg}/>
+{:else if loadStatus==='success'}
+
+  <Header {title} {userName} {pagePath}/>
+  
     <MovieHeader {movie} {userName} />
     <!-- // {#if loggedInUser && not(isEmpty(review)) && loggedInUser === propOr( null,'author',review)} -->
 
@@ -129,8 +163,9 @@
         </ButtonCircle>
       </div>
     {/if}
-</main>
 
+{/if}
+</main>
 
 <style style lang="postcss">
   .fab.center {
