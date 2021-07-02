@@ -1,6 +1,7 @@
 <script context="module">
   
   import { propOr, length, reject, find, take } from 'ramda';
+  
   let movieId = null
   
   export async function load({ page, fetch, session }) {
@@ -14,10 +15,10 @@
     let loadStatus = 'loading'
     let errMsg = ''
 
-    let userName = propOr(null, 'userName', session)
-
-    const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=1000&user=${userName}&scope=${'foo'}`
-    const movieRes = await fetch(url)
+    let token = propOr('', 'movieAPIToken', session)
+    let userName =  propOr('', 'userName', session)
+    const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=1000`
+    const movieRes = await fetch(url, { headers: { authorization: `Bearer ${token}` } })
     movie = await movieRes.json()
  
 

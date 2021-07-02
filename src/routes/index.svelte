@@ -1,7 +1,6 @@
 <script context="module">
 
 
-  
 
   export async function load({session}) {
     return {
@@ -33,8 +32,9 @@
   let searchResultMovies = []
 
   export let session
+  
   let userName = propOr(null, 'userName', session)
-
+  let token = propOr('', 'movieAPIToken', session)
   
   async function handleSubmit(e) {
       searchResultMovies = []
@@ -43,7 +43,8 @@
       const res = await fetch(`/api/movies/search.json`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`
         },
         body: JSON.stringify({title: searchCriteria})
       })

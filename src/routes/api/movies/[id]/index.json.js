@@ -1,7 +1,7 @@
 //import { token } from '$lib/config.js'
 import fetch from 'node-fetch'
-import {propEq, propOr, not} from 'ramda'
-import createJWT from '$lib/create-jwt'
+import { propOr } from 'ramda'
+//import createJWT from '$lib/create-jwt'
 import dotenv from 'dotenv'
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config()
@@ -9,18 +9,18 @@ if (process.env.NODE_ENV !== 'production') {
 const WORKSHOP_API = process.env['WORKSHOP_API']
 const moviesURL = `${WORKSHOP_API}/movies`  
 
-//console.log({WORKSHOP_API})
-
 export async function get(req) {
   const {params} = req
-  //const bearer = token()
-  const user = req.query.get('user') || ''
-  const scope = req.query.get('scope') || ''
-  const token = createJWT({user, scope})
-  console.log({user, scope})
+
+  //console.log({token})
+
+  //const token = req.query.get('token')
+  const bearerToken = req.headers.authorization
+  //console.log('APP API movies/[id]/index.json.js bearerToken', bearerToken)
 
   const result = await fetch(`${moviesURL}/${params.id}`, {
-    method: 'GET'
+    method: 'GET',
+    headers: { authorization: `${bearerToken}` } 
   }).then(r => r.json())
   .catch(err => {
     console.log('APP API movies/[id]/index.json.js error', err)
@@ -42,7 +42,7 @@ export async function get(req) {
   const startindex = req.query.get('startindex') || 0
   const pagesize = req.query.get('pagesize') || 5
   let reviewsURL = `${moviesURL}/${params.id}/reviews?startindex=${startindex}&pagesize=${pagesize}`
-  const headers = { authorization: `Bearer ${token}` } 
+  const headers = { authorization: `${bearerToken}` } 
 
 // const result = await fetch(apiUrl, { headers: { authorization: `Bearer ${token}` } })
 //   .then(r => r.json())
