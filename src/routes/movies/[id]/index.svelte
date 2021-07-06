@@ -29,11 +29,14 @@
 
     } else {
       console.log('movie not ok', movie)
+      console.log('movie.status', movie.status)
       loadStatus = 'error'
       if (movie.status === 500) {
         errMsg = "An error occurred trying to retrieve that movie."
       } else if (movie.status === 404) {
         errMsg = "That's strange ?! We couldn't find that movie."
+      } else if (movie.status === 401) {
+        errMsg = "You don't have permissions to do this."
       } else {
         errMsg = 'Unknown Error'
       }
