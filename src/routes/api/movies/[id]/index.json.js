@@ -1,7 +1,6 @@
-//import { token } from '$lib/config.js'
+
 import fetch from 'node-fetch'
 import { propOr } from 'ramda'
-//import createJWT from '$lib/create-jwt'
 import dotenv from 'dotenv'
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config()
@@ -11,13 +10,7 @@ const moviesURL = `${WORKSHOP_API}/movies`
 
 export async function get(req) {
   const {params} = req
-
-  //console.log({token})
-
-  //const token = req.query.get('token')
   const bearerToken = req.headers.authorization
-  //console.log('APP API movies/[id]/index.json.js bearerToken', bearerToken)
-
   const result = await fetch(`${moviesURL}/${params.id}`, {
     method: 'GET',
     headers: { authorization: `${bearerToken}` } 
@@ -27,9 +20,9 @@ export async function get(req) {
 
   })
 
-  console.log('APP API result IS', result)
+  //console.log('APP API result IS', result)
   const ok = propOr( false ,"id", result)
-  console.log({ok})
+  //console.log({ok})
 
   if (!ok) {
     console.log('APP API movies/[id]/index.json.js NOT OK', result)

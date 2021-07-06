@@ -4,7 +4,12 @@
     export let review = {}
     const dispatch = createEventDispatcher()
 
+
+    console.log('review form HEY HEY HEY')
+
     function submit(e) {
+
+      console.log('SUBMIT dispatching submit')
        dispatch('submit', {
         "id": review.id || `review-${review.author}-${review.movieId}`,
         "movieId": review.movieId,

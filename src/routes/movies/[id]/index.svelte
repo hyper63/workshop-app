@@ -15,8 +15,8 @@
     let loadStatus = 'loading'
     let errMsg = ''
 
-    let token = propOr('', 'movieAPIToken', session)
-    let userName =  propOr('', 'userName', session)
+    const token = propOr('', 'movieAPIToken', session)
+    const userName =  propOr('', 'userName', session)
     const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=1000`
     const movieRes = await fetch(url, { headers: { authorization: `Bearer ${token}` } })
     movie = await movieRes.json()
@@ -77,15 +77,7 @@
   export let userName
   export let pagePath
 
-  //console.log('BEFORE MOVIE PAGE loginRedirectTo', $loginRedirectTo)
-
   loginRedirectTo.update(() => pagePath)
-
-  //console.log('AFTER MOVIE PAGE loginRedirectTo', $loginRedirectTo)
-
- 
-
-  //const enableReaction = userName ? true: false
   
   const myReview = find(r => r.author === userName, reviews) || {}
   reviews = take(5, reviews)
@@ -100,16 +92,13 @@
     const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=${pagesize}`
      const movieRes = await fetch(url)
      if (movieRes.ok) {
-       //let nextPageReviews = (await movieRes.json()).reviews
        let nextPageReviews = reject(r => r.author === userName, (await movieRes.json()).reviews)
-
        otherReviews = [...otherReviews, ...nextPageReviews]
        showNextPage = length(nextPageReviews) < pagesize ? false : true
      }
   }
 
   async function handleSaveReaction({detail}) {
-      
       const res = await fetch(`/api/reactions/post.json`, {
         method: 'POST',
         headers: {

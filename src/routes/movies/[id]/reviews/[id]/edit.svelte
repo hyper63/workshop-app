@@ -1,38 +1,74 @@
 <script context="module">
   export async function load({ page, fetch, session }) {
+
+    console.log('edit.svelte load')
     const url = `/api/reviews/${page.params.id}.json`
-    const res = await fetch(url)
+    const token = propOr('', 'movieAPIToken', session)
+    const res = await fetch(url, { headers: { authorization: `Bearer ${token}` } })
+
+    
+    let review = {}
+    let loadStatus = 'loading'
+    let errMsg = ''
+
     if (res.ok) {
-      return {
+      review = await res.json()
+      loadStatus = 'success'
+    } else {
+      loadStatus = 'error'
+      if (res.status === 500) {
+        errMsg = "An error occurred trying to retrieve that review."
+      } else if (res.status === 404) {
+        errMsg = "That's strange ?! We couldn't find that review."
+      } else if (res.status === 401) {
+        errMsg = "You don't have permissions to do this."
+      } else {
+        errMsg = 'Unknown Error'
+      }
+
+
+    }
+
+    return {
         props: {
+          loadStatus,
+          errMsg,
           session,
-          review: await res.json()
+          review
         }
       }
-    }
+
   }
 </script>
 
 <script>
   import Header from '$lib/header.svelte'
+  import ErrorMsg from '$lib/error-msg.svelte'
   import ReviewForm from '$lib/review-form.svelte'
-  import { goto} from '$app/navigation'
+  import { goto } from '$app/navigation'
   import {propOr} from 'ramda'
+  export let loadStatus = 'loading'
+  export let errMsg = ''
   export let review = {}
   export let session
-
+  const token = propOr('', 'movieAPIToken', session)
+  
   let userName = propOr(null, 'userName', session)
-  //console.log('edit movie userName', userName)
+  console.log('edit movie userName', userName)
 
   let submitStatus = null 
   let error = false
 
 
   async function handleSubmit({detail}) {
+
+   
+    console.log('APP  handleSubmit token: ', token)
     const res = await fetch(`/api/reviews/${review.id}.json`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`
       },
       body: JSON.stringify(detail)
     })

@@ -7,12 +7,14 @@ if (process.env.NODE_ENV !== 'production') {
 const WORKSHOP_API = process.env['WORKSHOP_API']
 const moviesURL = `${WORKSHOP_API}/reviews`
 
-export async function post({body}) {
-  //const bearer = token()
+export async function post({body, headers}) {
+  const bearerToken = headers.authorization
+
   const result = await fetch(`${moviesURL}`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+       authorization: `${bearerToken}` 
     },
     body: JSON.stringify(body)
   }).then(r => r.json())

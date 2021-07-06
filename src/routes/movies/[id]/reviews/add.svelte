@@ -1,5 +1,7 @@
 <script context="module">
   export async function load({ page, session }) {
+   
+
     const movieId = page.params.id
       return {
         props: {
@@ -21,7 +23,8 @@
   export let session
 
   let userName = propOr(null, 'userName', session)
-  //console.log('add movie userName', userName)
+  let token = propOr('', 'movieAPIToken', session)
+  let errMsg = ''
   
   let review = {
       id: `review-${toLower(userName)}-${movieId}`,
@@ -36,7 +39,8 @@
     const res = await fetch('/api/reviews/post.json', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`
       },
       body: JSON.stringify(detail)
     })
@@ -46,7 +50,13 @@
       setTimeout(() => goto(`/movies/${review.movieId}`), 1000)
     } else {
       error = true
-      submitStatus = 'Error occured saving review'
+      if (movie.status === 500) {
+        submitStatus = "An error occurred trying to save the review."
+      } else if (movie.status === 401) {
+        submitStatus = "You don't have permissions to do this."
+      } else {
+        submitStatus = 'An unknown error occured saving the review'
+      }
     }
   }
 </script>
