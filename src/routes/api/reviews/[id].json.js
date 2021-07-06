@@ -25,10 +25,13 @@ export async function put({ params, body, headers }) {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      headers: { authorization: `${bearerToken}` } 
+      authorization: `${bearerToken}`
     },
     body: JSON.stringify(body)
   }).then(r => r.json())
+
+  console.log('reviews/[id]/json.js result', result) // { ok: false, status: 401, message: 'Not Authorized' }
+
 
   return {
     body: result

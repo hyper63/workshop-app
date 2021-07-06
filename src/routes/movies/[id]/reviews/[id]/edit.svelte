@@ -61,9 +61,6 @@
 
 
   async function handleSubmit({detail}) {
-
-   
-    console.log('APP  handleSubmit token: ', token)
     const res = await fetch(`/api/reviews/${review.id}.json`, {
       method: 'PUT',
       headers: {
@@ -73,14 +70,27 @@
       body: JSON.stringify(detail)
     })
 
-    if (res.ok) {
-      const response = await res.json()
+    const response = await res.json()
+    console.log('APP handleSumbit response', response)
+  // { ok: false, status: 401, message: 'Not Authorized' }
+    if (response.ok) {
+      
       submitStatus = 'Successfully saved review'  
-      setTimeout(() => goto(`/movies/${review.movieId}`), 1000)
+      
     } else {
       error = true
-      submitStatus = 'Error occured saving review'
+      if (response.status === 500) {
+        submitStatus = "An error occurred trying to save your review."
+      } else if (response.status === 404) {
+        submitStatus = "That's strange ?! We couldn't find that review."
+      } else if (response.status === 401) {
+        submitStatus = "You don't have permissions to save the review."
+      } else {
+        submitStatus = 'Error occured saving review'
+      }
     }
+    setTimeout(() => goto(`/movies/${review.movieId}`), 1000)
+
   }
 </script>
   
