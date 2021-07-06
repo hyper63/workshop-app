@@ -18,7 +18,7 @@
     const token = propOr('', 'movieAPIToken', session)
     const userName =  propOr('', 'userName', session)
     const url = `/api/movies/${movieId}.json?startindex=${startindex}&pagesize=1000`
-    const movieRes = await fetch(url, { headers: { authorization: `Bearer ${token}` } })
+    const movieRes = await fetch(url)
     movie = await movieRes.json()
  
 
@@ -52,7 +52,8 @@
           pagesize,
           showNextPage,
           userName,
-          pagePath : page.path
+          pagePath : page.path,
+          token
         }
       }
   }
@@ -76,6 +77,7 @@
   export let reviews
   export let userName
   export let pagePath
+  export let token
 
   loginRedirectTo.update(() => pagePath)
   
@@ -102,7 +104,8 @@
       const res = await fetch(`/api/reactions/post.json`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`
         },
         body: JSON.stringify(detail)
       })

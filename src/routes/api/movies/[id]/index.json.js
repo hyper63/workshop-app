@@ -10,10 +10,9 @@ const moviesURL = `${WORKSHOP_API}/movies`
 
 export async function get(req) {
   const {params} = req
-  const bearerToken = req.headers.authorization
+  //const bearerToken = req.headers.authorization
   const result = await fetch(`${moviesURL}/${params.id}`, {
-    method: 'GET',
-    headers: { authorization: `${bearerToken}` } 
+    method: 'GET'
   }).then(r => r.json())
   .catch(err => {
     console.log('APP API movies/[id]/index.json.js error', err)
@@ -35,13 +34,12 @@ export async function get(req) {
   const startindex = req.query.get('startindex') || 0
   const pagesize = req.query.get('pagesize') || 5
   let reviewsURL = `${moviesURL}/${params.id}/reviews?startindex=${startindex}&pagesize=${pagesize}`
-  const headers = { authorization: `${bearerToken}` } 
+  //const headers = { authorization: `${bearerToken}` } 
 
 // const result = await fetch(apiUrl, { headers: { authorization: `Bearer ${token}` } })
 //   .then(r => r.json())
 
   const reviews = await fetch(reviewsURL, {
-    headers,
     method: 'GET'
   }).then(r => r.json())
 

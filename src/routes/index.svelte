@@ -43,8 +43,7 @@
       const res = await fetch(`/api/movies/search.json`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${token}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({title: searchCriteria})
       })

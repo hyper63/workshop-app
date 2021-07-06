@@ -8,6 +8,9 @@ const moviesURL = `${WORKSHOP_API}/reviews`
 
 export async function get({ params, headers }) {
   const bearerToken = headers.authorization
+
+  console.log('bearerToken', bearerToken)
+  
   const review = await fetch(`${moviesURL}/${params.id}`, {
     method: 'GET',
     headers: { authorization: `${bearerToken}` } 
