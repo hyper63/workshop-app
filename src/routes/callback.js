@@ -34,7 +34,7 @@ export async function get(req) {
     }
   }).then(r => r.json())
 
-  const scopes = "MOVIE:SEARCH MOVIE:READ REVIEW:* REACTION:*"
+  const scopes = "MOVIE:SEARCH MOVIE:READ MOVIE:CREATE MOVIE:DELETE REVIEW:* REACTION:*"
   console.log('***** APP callback.js GitHub user ', user)
   req.locals.gitHubToken = result.access_token
   req.locals.userName = user.login
