@@ -16,6 +16,8 @@ export async function get({ params, headers }) {
     headers: { authorization: `${bearerToken}` } 
   }).then(r => r.json())
 
+  console.log('api reviews [id].json.js: review: ', review)
+
   return {
     body: review
   }

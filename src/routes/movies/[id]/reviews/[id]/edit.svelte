@@ -11,8 +11,10 @@
     let loadStatus = 'loading'
     let errMsg = ''
 
+    console.log('edit.svelte res', res)
     if (res.ok) {
       review = await res.json()
+      console.log('edit.svelte review', review)
       loadStatus = 'success'
     } else {
       loadStatus = 'error'
